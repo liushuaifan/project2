@@ -1,0 +1,21 @@
+.forms {
+    width: 600px;
+  }
+  .submitform {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .formbutton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .formbutton button {
+    margin: 0 10px;
+    width: 100px; 
+  }
+  

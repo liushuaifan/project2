@@ -9,7 +9,7 @@ import OnboardReject from "./components/onboardReject";
 import Profile from "./components/profile";
 import EmployeeStatus from "./components/employeeStatus";
 import HrStatus from "./components/hrStatus";
-import EmployeeList from "./components/employeeList";
+import EmployeeList from "./components/EmployeeList";
 import EmployeeDetail from "./components/EmployeeDetail";
 import Hiring from "./components/Hiring";
 
@@ -18,7 +18,7 @@ function App() {
     <BrowserRouter>
     <div className="App">
         
-          <Navbar />
+          {/* <Navbar /> */}
           <div className="content">
             <Routes>
                 {/* <Route path="*" element={<NotFound />} /> */}

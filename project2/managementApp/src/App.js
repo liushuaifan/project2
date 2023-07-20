@@ -15,34 +15,32 @@ import Hiring from "./components/Hiring";
 
 function App() {
   return (
+    <BrowserRouter>
     <div className="App">
-        <BrowserRouter>
-        <Navbar />
-        <Routes>
-            {/* <Route path="*" element={<NotFound />} /> */}
-   
-            <Route path="/SignIn" element={<SignIn />} />
-            <Route path="/registration" element={<Registration />} />
-            <Route path="/employee/onboard" element={<Onboard />} />
-            <Route path="/employee/onboard/pending" element={<OnboardPending />} />
-            <Route path="/employee/onboard/reject" element={<OnboardReject />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/employee/visaStatus" element={<EmployeeStatus />} />
+        
+          <Navbar />
+          <div className="content">
+            <Routes>
+                {/* <Route path="*" element={<NotFound />} /> */}
+      
+                <Route path="/SignIn" element={<SignIn />} />
+                <Route path="/registration" element={<Registration />} />
+                <Route path="/employee/onboard" element={<Onboard />} />
+                <Route path="/employee/onboard/pending" element={<OnboardPending />} />
+                <Route path="/employee/onboard/reject" element={<OnboardReject />} />
+                <Route path="/employee/profile" element={<Profile />} />
+                <Route path="/employee/visaStatus" element={<EmployeeStatus />} />
 
 
-            <Route path="/hr/visaStatus" element={<HrStatus />} />
-            <Route path="/hr/employeeList" element={<EmployeeList />} />
-            <Route path="/hr/employeeList/:employeeId" element={<EmployeeDetail />} />
+                <Route path="/hr/visaStatus" element={<HrStatus />} />
+                <Route path="/hr/employeeList" element={<EmployeeList />} />
+                <Route path="/hr/employeeList/:employeeId" element={<EmployeeDetail />} />
 
-            <Route path="/hr/hiring" element={<Hiring />} />
-
-   
-          
-
-        </Routes>
-
-        </BrowserRouter>
+                <Route path="/hr/hiring" element={<Hiring />} />
+            </Routes>
+          </div>
     </div>
+    </BrowserRouter>
   );
 }
 

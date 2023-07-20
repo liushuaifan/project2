@@ -1,0 +1,4 @@
+.receiptAccordion, .eadAccordion, .i983Accordion, .i20Accordion{
+  display: flex;
+  flex-direction: column;
+}

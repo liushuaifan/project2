@@ -35,6 +35,6 @@ hrSchema.methods.comparePassword = async function (candidatePassword, next) {
   }
 };
 
-const hr = mongoose.model('hr', hrSchema);
+const Hr = mongoose.model('Hr', hrSchema);
 
-module.exports = hr;
+module.exports = Hr;

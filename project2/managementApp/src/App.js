@@ -9,7 +9,7 @@ import OnboardReject from "./components/onboardReject";
 import Profile from "./components/profile";
 import EmployeeStatus from "./components/employeeStatus";
 import HrStatus from "./components/hrStatus";
-import EmployeeList from "./components/EmployeeList";
+import EmployeeList from "./components/employeeList";
 import EmployeeDetail from "./components/EmployeeDetail";
 import Hiring from "./components/Hiring";
 

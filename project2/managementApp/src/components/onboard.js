@@ -1,8 +1,24 @@
 import React from 'react';
-import './styles/onboard.css'
-import { Button, Form, Input, InputNumber } from 'antd';
+import { Button, Form, Input } from 'antd';
+import { createEmployeeAction } from '../app/employeeSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
-function onboard() {
+import './styles/onboard.css'
+
+
+function Onboard() {
+
+  const dispatch = useDispatch();
+  const handleSubmit = (data) => {
+    console.log("onboarding data: ", data)
+    dispatch(createEmployeeAction({ 
+      email: "test", 
+      password: "test",
+      firstName: data.firstName, 
+      lastName: data.lastName
+    })).then(
+    );
+  };
 
   const handleImageUpload = ()=>{
 
@@ -11,13 +27,12 @@ function onboard() {
   return (
     <div className='submitform'>
 
-    <Form className='forms' layout="vertical" onFinish={(data) => {
-    } }>
-      <Form.Item label="First Name" name="firstname" rules={[{required: true}]}>
+    <Form className='forms' layout="vertical" onFinish={handleSubmit}>
+      <Form.Item label="First Name" name="firstName" rules={[{required: true}]}>
         <Input.TextArea rows={1} />
       </Form.Item>
 
-      <Form.Item label="Last Name" name="lastname" rules={[{required: true}]}>
+      <Form.Item label="Last Name" name="lastName" rules={[{required: true}]}>
         <Input.TextArea rows={1} />
       </Form.Item>
 
@@ -28,29 +43,29 @@ function onboard() {
         {/* <img src={imageurl} alt="Your image" width="150" height="100" /> */}
       </div>
 
-      <Form.Item label="current address" name="currentaddress" rules={[{required: true}]}>
+      <Form.Item label="current address" name="currentaddress" >
         <Input.TextArea rows={1} />
       </Form.Item>
 
-      <Form.Item label="cellphone number" name="cellphonenumber" rules={[{required: true}]}>
+      <Form.Item label="cellphone number" name="cellphonenumber" >
         <Input.TextArea rows={1} />
       </Form.Item>
 
       <h4>Permanent resient or citizen of US?</h4>
 
-      <Form.Item label="Reference" name="reference" rules={[{required: true}]}>
+      <Form.Item label="Reference" name="reference" >
         <Input.TextArea rows={1} />
       </Form.Item>
 
-      <Form.Item label="SSN" name="SSN" rules={[{required: true}]}>
+      <Form.Item label="SSN" name="SSN" >
         <Input.TextArea rows={1} />
       </Form.Item>
 
-      <Form.Item label="Date of Birth" name="dateofbirth" rules={[{required: true}]}>
+      <Form.Item label="Date of Birth" name="dateofbirth" >
         <Input.TextArea rows={1} />
       </Form.Item>
 
-      <Form.Item label="Gender" name="gender" rules={[{required: true}]}>
+      <Form.Item label="Gender" name="gender" >
         <Input.TextArea rows={1} />
       </Form.Item>
 
@@ -63,4 +78,4 @@ function onboard() {
   )
 }
 
-export default onboard
+export default Onboard

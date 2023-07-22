@@ -1,6 +1,7 @@
 const db = require('../models');
 const jwt = require('jsonwebtoken');
 
+// GET - /api/employee/:employee_id
 exports.getEmployee = async function (req, res, next) {
   try {
     const employee = await db.Employee.findById(req.params.employee_id);
@@ -10,6 +11,7 @@ exports.getEmployee = async function (req, res, next) {
   }
 };
 
+// PUT - /api/employee/:employee_id
 exports.updateEmployee = async function (req, res, next) {
     try {
         const employee = await db.Employee.findByIdAndUpdate(req.params.employee_id, req.body);
@@ -20,6 +22,7 @@ exports.updateEmployee = async function (req, res, next) {
       }
   };
 
+// POST - /api/employee/employeeSignup
 exports.createEmployee = async function (req, res, next) {
   try {
     console.log(db.Employee)

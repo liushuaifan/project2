@@ -4,9 +4,11 @@ const bcrypt = require('bcrypt');
 const employeeSchema = new mongoose.Schema({
   firstName: {
     type: String,
+    required: true,
   },
   lastName: {
     type: String,
+    required: true,
   },
   middleName: {
     type: String,

@@ -16,10 +16,18 @@ exports.updateEmployee = async function (req, res, next) {
     try {
 
       const employee = await db.Employee.findById(req.params.employee_id);
+      let index=-1;
       for(let key in req.body){
-        if(req.body.hasOwnProperty(key)){
+        if(req.body.hasOwnProperty(key)){         
           if (key === 'visaDocumentName' || key === 'visaDocumentLink' || key === 'visaDocumentStatus') {
-            employee[key].push(...req.body[key]);
+            if(key === 'visaDocumentName' && req.body[key]==='Receipt'){
+              index=0;
+            }else if(key === 'visaDocumentName' && req.body[key]==='EAD'){
+              index=1;
+            }
+            console.log("index is", index);
+            employee[key][index] = req.body[key];
+            console.log(employee[key]);
           }else{
             employee[key] = req.body[key];
           }

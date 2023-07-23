@@ -23,13 +23,12 @@ function EmployeeStatus() {
   useEffect(() => {
     const employee = employees && employees.find(employee => employee._id==='64bb9ff34f7000182bd7d11c');
     console.log(employee)
-  
-    let VisaDocumentName = employee && employee.visaDocumentName;
+
     let VisaDocumentStatus = employee && employee.visaDocumentStatus;
-    let index = VisaDocumentName && VisaDocumentName.indexOf('EAD')
-    let currentVisaStatus = VisaDocumentStatus && VisaDocumentStatus[index];
-    console.log('currentVisaStatus: ', currentVisaStatus);
-    setIsDisabled(currentVisaStatus === 'approved' ? false : true);
+    let EADStatus = VisaDocumentStatus && VisaDocumentStatus[1];
+    setIsDisabled(EADStatus === 'approved' ? false : true);
+
+
   }, [employees])
 
 
@@ -38,9 +37,9 @@ function EmployeeStatus() {
     console.log("file is: ", file);
     dispatch(updateEmployeeAction({ 
       employeeId: '64bb9ff34f7000182bd7d11c', 
-      visaDocumentName: ['EAD'],
-      visaDocumentLink: [file.name], 
-      visaDocumentStatus: ['pending']
+      visaDocumentName: 'EAD',
+      visaDocumentLink: file.name, 
+      visaDocumentStatus: 'pending'
     })).then(
     );
   }

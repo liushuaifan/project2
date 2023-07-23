@@ -1,10 +1,50 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { Accordion, AccordionSummary, AccordionDetails, Typography, Button } from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Form, Input } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchEmployeesAction, updateEmployeeAction } from '../app/employeeSlice';
+
 import './styles/employeeStatus.css'
 
-function employeeStatus() {
+function EmployeeStatus() {
+
+  const dispatch = useDispatch();
+
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  useEffect(() => {
+    dispatch(fetchEmployeesAction());
+  }, []);
+
+  const { employees } = useSelector(state => state.employees);
+
+  //增加了一个新的 useEffect，它依赖于 employees。当 employees 更新时，这个 useEffect 将会运行，找到对应的员工，然后根据员工的 VisaDocumentStatus 更新 isDisabled 的状态
+  useEffect(() => {
+    const employee = employees && employees.find(employee => employee._id==='64bb9ff34f7000182bd7d11c');
+    console.log(employee)
+  
+    let VisaDocumentName = employee && employee.visaDocumentName;
+    let VisaDocumentStatus = employee && employee.visaDocumentStatus;
+    let index = VisaDocumentName && VisaDocumentName.indexOf('EAD')
+    let currentVisaStatus = VisaDocumentStatus && VisaDocumentStatus[index];
+    console.log('currentVisaStatus: ', currentVisaStatus);
+    setIsDisabled(currentVisaStatus === 'approved' ? false : true);
+  }, [employees])
+
+
+  const handleEADSubmit = (event) =>{
+    const file = event.target.files[0];
+    console.log("file is: ", file);
+    dispatch(updateEmployeeAction({ 
+      employeeId: '64bb9ff34f7000182bd7d11c', 
+      visaDocumentName: ['EAD'],
+      visaDocumentLink: [file.name], 
+      visaDocumentStatus: ['pending']
+    })).then(
+    );
+  }
+
   return (
     <div>
       <Accordion>
@@ -15,12 +55,12 @@ function employeeStatus() {
           <div className='receiptPending'>Waiting for HR to approve your OPT Receipt </div>
           <div className='receiptApproved'>
             <p>Please upload a copy of your OPT EAD</p> 
-            <input type="file" id="optEAD" name="filename" />
+            <input type="file" id="optEAD" name="filename" onChange={handleEADSubmit}/>
           </div>
           <div className='receiptRejected'>HR's feedback</div>
         </AccordionDetails>
       </Accordion>
-      <Accordion>
+      <Accordion disabled = {isDisabled}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} style={{backgroundColor:'WhiteSmoke'}}>
           <Typography>OPT EAD</Typography>
         </AccordionSummary>
@@ -32,7 +72,7 @@ function employeeStatus() {
           <div className='eadRejected'>HR's feedback</div>
         </AccordionDetails>
       </Accordion>
-      <Accordion>
+      <Accordion disabled>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} style={{backgroundColor:'WhiteSmoke'}}>
           <Typography>I-983</Typography>
         </AccordionSummary>
@@ -75,4 +115,4 @@ function employeeStatus() {
   )
 }
 
-export default employeeStatus
+export default EmployeeStatus

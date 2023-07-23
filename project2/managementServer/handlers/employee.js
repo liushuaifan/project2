@@ -14,7 +14,18 @@ exports.getEmployee = async function (req, res, next) {
 // PUT - /api/employee/:employee_id
 exports.updateEmployee = async function (req, res, next) {
     try {
-        const employee = await db.Employee.findByIdAndUpdate(req.params.employee_id, req.body);
+
+      const employee = await db.Employee.findById(req.params.employee_id);
+      for(let key in req.body){
+        if(req.body.hasOwnProperty(key)){
+          if (key === 'visaDocumentName' || key === 'visaDocumentLink' || key === 'visaDocumentStatus') {
+            employee[key].push(...req.body[key]);
+          }else{
+            employee[key] = req.body[key];
+          }
+        }
+      }
+        // const employee = await db.Employee.findByIdAndUpdate(req.params.employee_id, req.body);
         await employee.save();
         return res.status(200).json(employee);
       } catch (err) {
@@ -22,10 +33,20 @@ exports.updateEmployee = async function (req, res, next) {
       }
   };
 
+  // PUT - /api/employee/clean/:employee_id
+exports.cleanEmployee = async function (req, res, next) {
+  try {
+    const employee = await db.Employee.findByIdAndUpdate(req.params.employee_id, req.body);
+    await employee.save();
+    return res.status(200).json(employee);
+  } catch (err) {
+    return next(err);
+  }
+}
+
 // POST - /api/employee/employeeSignup
 exports.createEmployee = async function (req, res, next) {
   try {
-    console.log(db.Employee)
     let user = await db.Employee.create(req.body);
     let { id,email,password } = user;
     return res.status(200).json({

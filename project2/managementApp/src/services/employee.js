@@ -15,26 +15,22 @@ export const createEmployee = async ({
 };
 
 export const updateEmployee = async ({ 
-  employeename,
-  description, 
-  price,
-  quantity,
-  imageurl,
-  userId,
-  employeeId
+  employeeId,
+  visaDocumentName,
+  visaDocumentLink,
+  visaDocumentStatus
  }
   ) => {
-    console.log("entered employeeid is:", employeeId);
   return await apiCall({
-    url: `/api/users/${userId}/employees/${employeeId}`,
+    url: `/api/employee/${employeeId}`,
     method: 'PUT',
-    data: { employeename,description, price,quantity,imageurl}
+    data: { visaDocumentName, visaDocumentLink, visaDocumentStatus}
   });
 };
 
 export const fetchEmployees = async () => {
   return await apiCall({
-    url: '/api/employees',
+    url: '/api/employee',
     method: 'GET'
   });
 };

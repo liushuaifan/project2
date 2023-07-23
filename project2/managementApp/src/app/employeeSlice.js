@@ -89,12 +89,10 @@ const employeeSlice = createSlice({
     builder.addCase(fetchEmployeesAction.rejected, (state, action) => {
       state.status = 'failed';
       state.employees = action.payload;
-      console.log('fetchEmployeesAction failed');
     });
     builder.addCase(fetchEmployeesAction.pending, (state, action) => {
       state.status = 'pending';
       state.employees = action.payload;
-      console.log('fetchEmployeesAction pending');
     });
     builder.addCase(createEmployeeAction.fulfilled, (state, action) => {
       state.status = 'succeeded';
@@ -108,8 +106,6 @@ const employeeSlice = createSlice({
     });
     builder.addCase(updateEmployeeAction.fulfilled, (state, action) => {
       state.status = 'succeeded';
-      console.log(state.employees)
-      console.log(action.payload)
       state.employees = state.employees.map(employee =>
         employee._id === action.payload._id ? action.payload : employee
       );

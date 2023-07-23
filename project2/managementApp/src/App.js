@@ -7,7 +7,7 @@ import Navbar from "./components/navbar";
 import OnboardPending from "./components/onboardPending";
 import OnboardReject from "./components/onboardReject";
 import Profile from "./components/profile";
-import EmployeeStatus from "./components/employeeStatus";
+import EmployeeStatus from "./components/EmployeeStatus";
 import HrStatus from "./components/hrStatus";
 import EmployeeList from "./components/EmployeeList";
 import EmployeeDetail from "./components/EmployeeDetail";
@@ -25,11 +25,12 @@ function App() {
       
                 <Route path="/SignIn" element={<SignIn />} />
                 <Route path="/registration" element={<Registration />} />
-                <Route path="/" element={<Onboard />} />
+                <Route path="/employee/onboard" element={<Onboard />} />
                 <Route path="/employee/onboard/pending" element={<OnboardPending />} />
                 <Route path="/employee/onboard/reject" element={<OnboardReject />} />
                 <Route path="/employee/profile" element={<Profile />} />
-                <Route path="/employee/visaStatus" element={<EmployeeStatus />} />
+                {/* <Route path="/employee/:employeeId/visaStatus/" element={<EmployeeStatus />} /> */}
+                <Route path="/" element={<EmployeeStatus />} />
 
 
                 <Route path="/hr/visaStatus" element={<HrStatus />} />

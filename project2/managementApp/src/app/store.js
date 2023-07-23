@@ -5,7 +5,7 @@ import errorReducer from './errorSlice';
 
 export default configureStore({
   reducer: {
-    employee: employeeReducer,
+    employees: employeeReducer,
     error: errorReducer,
   },
   devTools: true

@@ -20,8 +20,8 @@ app.use('/api/employee',
 
 app.get('/api/employee', async function (req, res, next) {
   try {
-    const products = await db.Employee.find();
-    return res.status(200).json(products);
+    const employees = await db.Employee.find();
+    return res.status(200).json(employees);
   } catch (err) {
     return next(err);
   }

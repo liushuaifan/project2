@@ -77,6 +77,11 @@ const employeeSchema = new mongoose.Schema({
     {
       type: String,
     }
+  ],
+  visaDocumentFeedback: [
+    {
+      type: String,
+    }
   ]
 });
 

@@ -31,6 +31,8 @@ function EmployeeStatus() {
   const [I20Visible2, setI20Visible2] = useState(false);
   const [I20Visible3, setI20Visible3] = useState(false);
 
+  const [receiptFeedback, setReceiptFeedback] = useState("");
+
   useEffect(() => {
     dispatch(fetchEmployeesAction());
   }, []);
@@ -39,13 +41,14 @@ function EmployeeStatus() {
 
   //增加了一个新的 useEffect，它依赖于 employees。当 employees 更新时，这个 useEffect 将会运行，找到对应的员工，然后根据员工的 VisaDocumentStatus 更新 isDisabled 的状态
   useEffect(() => {
-    const employee = employees && employees.find(employee => employee._id==='64bb9ff34f7000182bd7d11c');
+    const employee = employees && employees.find(employee => employee._id==='64bef5e47f390e96ea3c7daa');
     console.log(employee)
     if(employee){
       let VisaDocumentStatus = employee.visaDocumentStatus;
+      let VisaDocumentFeedback = employee.visaDocumentFeedback;
 
       let receiptStatus = VisaDocumentStatus[0];
-      console.log("aaa", receiptStatus)
+      setReceiptFeedback(VisaDocumentFeedback[0])
       setEADIsDisabled(receiptStatus === 'approved' ? false : true);
       switch(receiptStatus){
         case 'pending':
@@ -57,6 +60,7 @@ function EmployeeStatus() {
         case 'rejected':
           setReceiptVisible3(true);
           break;
+        default:
       }
 
       let EADStatus = VisaDocumentStatus[1];
@@ -71,6 +75,7 @@ function EmployeeStatus() {
         case 'rejected':
           setEADVisible3(true);
           break;
+        default:
       }
 
       let I983Status = VisaDocumentStatus[2];
@@ -85,6 +90,7 @@ function EmployeeStatus() {
         case 'rejected':
           setI983Visible3(true);
           break;
+        default:
       }
 
       let I20Status = VisaDocumentStatus[3];
@@ -98,6 +104,7 @@ function EmployeeStatus() {
         case 'rejected':
           setI20Visible3(true);
           break;
+        default:
       }
 
     }
@@ -108,10 +115,11 @@ function EmployeeStatus() {
     const file = event.target.files[0];
     console.log("file is: ", file);
     dispatch(updateEmployeeAction({ 
-      employeeId: '64bb9ff34f7000182bd7d11c', 
+      employeeId: '64bef5e47f390e96ea3c7daa', 
       visaDocumentName: 'EAD',
       visaDocumentLink: file.name, 
-      visaDocumentStatus: 'pending'
+      visaDocumentStatus: 'pending',
+      visaDocumentFeedback: ''
     })).then(
     );
   }
@@ -128,7 +136,7 @@ function EmployeeStatus() {
             <p>Please upload a copy of your OPT EAD</p> 
             <input type="file" id="optEAD" name="filename" onChange={handleEADSubmit}/>
           </div>}
-          {receiptVisible3 && <div className='receiptRejected'>HR's feedback</div>}
+          {receiptVisible3 && <div className='receiptRejected'>HR's feedback: {receiptFeedback}</div>}
         </AccordionDetails>
       </Accordion>
       <Accordion disabled = {EADisDisabled}>

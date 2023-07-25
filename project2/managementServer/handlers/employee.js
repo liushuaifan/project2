@@ -19,7 +19,7 @@ exports.updateEmployee = async function (req, res, next) {
       let index=-1;
       for(let key in req.body){
         if(req.body.hasOwnProperty(key)){         
-          if (key === 'visaDocumentName' || key === 'visaDocumentLink' || key === 'visaDocumentStatus') {
+          if (key === 'visaDocumentName' || key === 'visaDocumentLink' || key === 'visaDocumentStatus' || key === 'visaDocumentFeedback') {
             if(key === 'visaDocumentName' && req.body[key]==='Receipt'){
               index=0;
             }else if(key === 'visaDocumentName' && req.body[key]==='EAD'){

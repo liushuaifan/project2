@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import { useDispatch, useSelector } from 'react-redux';
 import { updateEmployeeAction } from '../app/employeeSlice';
@@ -9,6 +9,34 @@ function HrStatusEmployee({employee}) {
   console.log(employee)
   let index = employee.visaDocumentStatus.indexOf('pending')
   const [feedback, setFeedback] = useState("");
+  const [pdfUrl, setPdfUrl] = useState("");
+
+  useEffect(() => {
+    const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
+      const byteCharacters = atob(b64Data);
+      const byteArrays = [];
+    
+      for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        const slice = byteCharacters.slice(offset, offset + sliceSize);
+    
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+          byteNumbers[i] = slice.charCodeAt(i);
+        }
+    
+        const byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+      }
+    
+      const blob = new Blob(byteArrays, {type: contentType});
+      return blob;
+    }
+
+    const blob = b64toBlob(employee.visaDocumentLink[index], "application/pdf");
+    const blobUrl = URL.createObjectURL(blob);
+    setPdfUrl(blobUrl);
+  }, []);
+
 
   const handleAprrove = () => {
     dispatch(updateEmployeeAction({ 
@@ -42,7 +70,7 @@ function HrStatusEmployee({employee}) {
       <div>{
         employee.visaDocumentLink[index]==="" ? "Not yet submitted" : (
           <>
-            <div>{employee.visaDocumentLink[index]}</div>  
+            <a href={pdfUrl}>Download Pdf file</a>
             <div><button onClick={handleAprrove}>Approve</button></div>  
             <input type="text" id="fname" name="fname" onChange={(e) => handleOnChange(e)}/>
             <div><button onClick={handleReject}>Reject</button></div> 

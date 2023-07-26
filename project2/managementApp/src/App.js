@@ -2,14 +2,14 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
 import SignIn from "./components/signIn";
 import Registration from "./components/registration";
-import Onboard from "./components/Onboard";
+import Onboard from "./components/onboard";
 import Navbar from "./components/navbar";
 import OnboardPending from "./components/onboardPending";
 import OnboardReject from "./components/onboardReject";
 import Profile from "./components/profile";
-import EmployeeStatus from "./components/EmployeeStatus";
+import EmployeeStatus from "./components/employeeStatus";
 import HrStatus from "./components/hrStatus";
-import EmployeeList from "./components/EmployeeList";
+import EmployeeList from "./components/employeeList";
 import EmployeeDetail from "./components/EmployeeDetail";
 import Hiring from "./components/Hiring";
 
@@ -25,6 +25,7 @@ function App() {
       
                 <Route path="/SignIn" element={<SignIn />} />
                 <Route path="/registration" element={<Registration />} />
+                {/* <Route path="/" element={<Onboard />} /> */}
                 <Route path="/employee/onboard" element={<Onboard />} />
                 <Route path="/employee/onboard/pending" element={<OnboardPending />} />
                 <Route path="/employee/onboard/reject" element={<OnboardReject />} />

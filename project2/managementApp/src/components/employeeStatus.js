@@ -114,14 +114,25 @@ function EmployeeStatus() {
   const handleEADSubmit = (event) =>{
     const file = event.target.files[0];
     console.log("file is: ", file);
-    dispatch(updateEmployeeAction({ 
-      employeeId: '64bef5e47f390e96ea3c7daa', 
-      visaDocumentName: 'EAD',
-      visaDocumentLink: file.name, 
-      visaDocumentStatus: 'pending',
-      visaDocumentFeedback: ''
-    })).then(
-    );
+
+    let reader = new FileReader();
+    reader.onloadend = function () {
+        const base64String = reader.result.replace("data:", "")
+            .replace(/^.+,/, "");
+        // console.log("length: ", base64String.length)
+        // localStorage.setItem('myFile', base64String);
+        dispatch(updateEmployeeAction({ 
+          employeeId: '64bef5e47f390e96ea3c7daa', 
+          visaDocumentName: 'EAD',
+          visaDocumentLink: base64String, 
+          visaDocumentStatus: 'pending',
+          visaDocumentFeedback: ''
+        })).then(
+        );
+    }
+    reader.readAsDataURL(file);
+
+
   }
 
   return (

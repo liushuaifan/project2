@@ -71,18 +71,6 @@ function EmployeeStatus() {
       setI983IsDisabled((I983Link === '' || I20Status === 'approved') ? true : false);
       setI20IsDisabled((I20Link === '') ? true : false);
 
-    
-   
-   
-
-      
-
-      
-      // setEADIsDisabled(I983Status === 'approved' ? true : false);
-
-
-      // setI983IsDisabled(I20Status === 'approved' ? true : false);
-
       switch(receiptStatus){
         case 'pending':
           setReceiptVisible1(true);
@@ -95,11 +83,6 @@ function EmployeeStatus() {
           break;
         default:
       }
-
- 
-
-
-
       switch(EADStatus){
         case 'pending':
           setEADVisible1(true);
@@ -112,10 +95,6 @@ function EmployeeStatus() {
           break;
         default:
       }
-
-
-
-
       switch(I983Status){
         case 'pending':
           setI983Visible1(true);
@@ -128,10 +107,6 @@ function EmployeeStatus() {
           break;
         default:
       }
-
-
-
-
       switch(I20Status){
         case 'pending':
           setI20Visible1(true);
@@ -158,11 +133,11 @@ function EmployeeStatus() {
     reader.onloadend = function () {
         const base64String = reader.result.replace("data:", "")
             .replace(/^.+,/, "");
+        // console.log(base64String)
         dispatch(updateEmployeeAction({ 
           employeeId: '64bef5e47f390e96ea3c7daa', 
           visaDocumentName: filetype,
-          // visaDocumentLink: base64String, 
-          visaDocumentLink: 'aaaaaaaaa', 
+          visaDocumentLink: base64String, 
           visaDocumentStatus: 'pending',
           visaDocumentFeedback: ''
         })).then(

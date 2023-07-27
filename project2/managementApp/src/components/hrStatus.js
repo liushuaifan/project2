@@ -22,8 +22,6 @@ function HrStatus() {
   // const { hrs } = useSelector(state => state.hrs);
   // console.log("hrs: ", hrs)
 
-
-
   return (
     <div>
         <table>

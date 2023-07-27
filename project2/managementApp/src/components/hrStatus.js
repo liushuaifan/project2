@@ -5,6 +5,7 @@ import { Form, Input } from 'antd';
 import HrStatusEmployee from './HrStatusEmployee';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchEmployeesAction } from '../app/employeeSlice';
+import { fetchHrsAction } from '../app/hrSlice';
 
 function HrStatus() {
 
@@ -12,10 +13,14 @@ function HrStatus() {
 
   useEffect(() => {
     dispatch(fetchEmployeesAction());
+    dispatch(fetchHrsAction());
   }, []);
 
   const { employees } = useSelector(state => state.employees);
-  console.log(employees)
+  console.log("employees: ", employees)
+
+  const { hrs } = useSelector(state => state.hrs);
+  console.log("hrs: ", hrs)
 
 
 

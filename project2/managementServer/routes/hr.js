@@ -6,7 +6,7 @@ const {
   updateHr
 } = require('../handlers/hr');
 
-router.post('/hrsignup', createHr);
+router.post('/hrSignup', createHr);
 router.get('/:hr_id', getHr);
 router.put('/:hr_id', updateHr);
 

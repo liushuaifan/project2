@@ -33,7 +33,7 @@ app.use('/api/hr',
 
 app.get('/api/hr', async function (req, res, next) {
   try {
-    const products = await db.hr.find();
+    const products = await db.Hr.find();
     return res.status(200).json(products);
   } catch (err) {
     return next(err);

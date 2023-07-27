@@ -24,6 +24,10 @@ exports.updateEmployee = async function (req, res, next) {
               index=0;
             }else if(key === 'visaDocumentName' && req.body[key]==='EAD'){
               index=1;
+            }else if(key === 'visaDocumentName' && req.body[key]==='I983'){
+              index=2;
+            }else if(key === 'visaDocumentName' && req.body[key]==='I20'){
+              index=3;
             }
             console.log("index is", index);
             employee[key][index] = req.body[key];

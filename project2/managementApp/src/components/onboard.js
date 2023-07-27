@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Input } from 'antd';
-import { createEmployeeAction } from '../app/employeeSlice';
+import { createEmployeeAction, updateEmployeeAction } from '../app/employeeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './styles/onboard.css'
@@ -11,9 +11,8 @@ function Onboard() {
   const dispatch = useDispatch();
   const handleSubmit = (data) => {
     console.log("onboarding data: ", data)
-    dispatch(createEmployeeAction({ 
-      email: "test", 
-      password: "test",
+    dispatch(updateEmployeeAction({ 
+      employeeId: '64bef5e47f390e96ea3c7daa',
       firstName: data.firstName, 
       lastName: data.lastName
     })).then(

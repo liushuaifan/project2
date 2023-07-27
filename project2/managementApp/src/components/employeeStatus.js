@@ -11,6 +11,7 @@ function EmployeeStatus() {
 
   const dispatch = useDispatch();
 
+  const [ReceiptisDisabled, setReceiptIsDisabled] = useState(false);
   const [EADisDisabled, setEADIsDisabled] = useState(true);
   const [I983isDisabled, setI983IsDisabled] = useState(true);
   const [I20isDisabled, setI20IsDisabled] = useState(true);
@@ -32,6 +33,9 @@ function EmployeeStatus() {
   const [I20Visible3, setI20Visible3] = useState(false);
 
   const [receiptFeedback, setReceiptFeedback] = useState("");
+  const [EADFeedback, setEADFeedback] = useState("");
+  const [I983Feedback, setI983Feedback] = useState("");
+  const [I20Feedback, setI20Feedback] = useState("");
 
   useEffect(() => {
     dispatch(fetchEmployeesAction());
@@ -45,11 +49,40 @@ function EmployeeStatus() {
     console.log(employee)
     if(employee){
       let VisaDocumentStatus = employee.visaDocumentStatus;
+      let VisaDocumentLink = employee.visaDocumentLink;
       let VisaDocumentFeedback = employee.visaDocumentFeedback;
 
+      let EADLink = VisaDocumentLink[1];
+      let I983Link = VisaDocumentLink[2];
+      let I20Link = VisaDocumentLink[3];
+
       let receiptStatus = VisaDocumentStatus[0];
+      let EADStatus = VisaDocumentStatus[1];
+      let I983Status = VisaDocumentStatus[2];
+      let I20Status = VisaDocumentStatus[3];
+
       setReceiptFeedback(VisaDocumentFeedback[0])
-      setEADIsDisabled(receiptStatus === 'approved' ? false : true);
+      setEADFeedback(VisaDocumentFeedback[1])
+      setI983Feedback(VisaDocumentFeedback[2])
+      setI20Feedback(VisaDocumentFeedback[0])
+
+      setReceiptIsDisabled(EADStatus === 'approved' ? true : false);
+      setEADIsDisabled((EADLink === '' || I983Status === 'approved' )? true : false);
+      setI983IsDisabled((I983Link === '' || I20Status === 'approved') ? true : false);
+      setI20IsDisabled((I20Link === '') ? true : false);
+
+    
+   
+   
+
+      
+
+      
+      // setEADIsDisabled(I983Status === 'approved' ? true : false);
+
+
+      // setI983IsDisabled(I20Status === 'approved' ? true : false);
+
       switch(receiptStatus){
         case 'pending':
           setReceiptVisible1(true);
@@ -63,8 +96,10 @@ function EmployeeStatus() {
         default:
       }
 
-      let EADStatus = VisaDocumentStatus[1];
-      setI983IsDisabled(EADStatus === 'approved' ? false : true);
+ 
+
+
+
       switch(EADStatus){
         case 'pending':
           setEADVisible1(true);
@@ -78,8 +113,9 @@ function EmployeeStatus() {
         default:
       }
 
-      let I983Status = VisaDocumentStatus[2];
-      setI20IsDisabled(I983Status === 'approved' ? false : true);
+
+
+
       switch(I983Status){
         case 'pending':
           setI983Visible1(true);
@@ -93,7 +129,9 @@ function EmployeeStatus() {
         default:
       }
 
-      let I20Status = VisaDocumentStatus[3];
+
+
+
       switch(I20Status){
         case 'pending':
           setI20Visible1(true);
@@ -111,20 +149,20 @@ function EmployeeStatus() {
   }, [employees])
 
 
-  const handleEADSubmit = (event) =>{
+  const handlefileSubmit = (event, filetype) =>{
     const file = event.target.files[0];
-    console.log("file is: ", file);
+    console.log("filetype is: ",filetype)
+    // console.log("file is: ", file);
 
     let reader = new FileReader();
     reader.onloadend = function () {
         const base64String = reader.result.replace("data:", "")
             .replace(/^.+,/, "");
-        // console.log("length: ", base64String.length)
-        // localStorage.setItem('myFile', base64String);
         dispatch(updateEmployeeAction({ 
           employeeId: '64bef5e47f390e96ea3c7daa', 
-          visaDocumentName: 'EAD',
-          visaDocumentLink: base64String, 
+          visaDocumentName: filetype,
+          // visaDocumentLink: base64String, 
+          visaDocumentLink: 'aaaaaaaaa', 
           visaDocumentStatus: 'pending',
           visaDocumentFeedback: ''
         })).then(
@@ -137,7 +175,8 @@ function EmployeeStatus() {
 
   return (
     <div>
-      <Accordion>
+
+      <Accordion disabled = {ReceiptisDisabled}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} style={{backgroundColor:'WhiteSmoke'}}>
           <Typography>OPT Receipt</Typography>
         </AccordionSummary>
@@ -145,11 +184,13 @@ function EmployeeStatus() {
           {receiptVisible1 && <div className='receiptPending'>Waiting for HR to approve your OPT Receipt </div>}
           {receiptVisible2 && <div className='receiptApproved'>
             <p>Please upload a copy of your OPT EAD</p> 
-            <input type="file" id="optEAD" name="filename" onChange={handleEADSubmit}/>
+            <input type="file" id="optEAD" name="filename" onChange={(e)=>handlefileSubmit(e, 'EAD')}/>
           </div>}
           {receiptVisible3 && <div className='receiptRejected'>HR's feedback: {receiptFeedback}</div>}
         </AccordionDetails>
       </Accordion>
+
+
       <Accordion disabled = {EADisDisabled}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} style={{backgroundColor:'WhiteSmoke'}}>
           <Typography>OPT EAD</Typography>
@@ -158,44 +199,50 @@ function EmployeeStatus() {
           {EADVisible1 && <div className='eadPending'>Waiting for HR to approve your OPT EAD </div>}
           {EADVisible2 && <div className='eadApproved'>
             <p>Please download and fill out the I-983 form</p> 
+            <div className='i983file'>
+              <a href="/images/myw3schoolsimage.jpg" download>
+                <img src="/images/myw3schoolsimage.jpg" alt="Empty Template" width="104" height="142" />
+              </a>
+              <a href="/images/myw3schoolsimage.jpg" download>
+                <img src="/images/myw3schoolsimage.jpg" alt="Sample Template" width="104" height="142" />
+              </a>
+              <input type="file" id="I-983" name="filename" onChange={(e)=>handlefileSubmit(e, 'I983')}/>
+            </div>
           </div>}
-          {EADVisible3 && <div className='eadRejected'>HR's feedback</div>}
+          {EADVisible3 && <div className='eadRejected'>HR's feedback {EADFeedback}</div>}
         </AccordionDetails>
       </Accordion>
+
+
       <Accordion disabled = {I983isDisabled}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} style={{backgroundColor:'WhiteSmoke'}}>
           <Typography>I-983</Typography>
         </AccordionSummary>
         <AccordionDetails className="i983Accordion" style={{borderTop: "1px solid rgba(0, 0, 0, .125)"}}>
-          <div className='i983file'>
-            <a href="/images/myw3schoolsimage.jpg" download>
-              <img src="/images/myw3schoolsimage.jpg" alt="Empty Template" width="104" height="142" />
-            </a>
-            <a href="/images/myw3schoolsimage.jpg" download>
-              <img src="/images/myw3schoolsimage.jpg" alt="Sample Template" width="104" height="142" />
-            </a>
-            <input type="file" id="I-983" name="filename" />
-          </div>
-
-          <div className='i983Pending'>Waiting for HR to approve and sign your I-983</div>
-          <div className='i983Approved'>
-            <p>Please send the I-983 along with all necessary documents to your school and upload the new I-20</p>
-            <input type="file" id="I-20" name="filename" /> 
-          </div>
-          <div className='i983Rejected'>HR's feedback</div>
+          {I983Visible1 && <div className='i983Pending'>Waiting for HR to approve and sign your I-983</div>}     
+          {I983Visible2 &&           
+            <div className='i983Approved'>
+              <p>Please send the I-983 along with all necessary documents to your school and upload the new I-20</p>
+              <input type="file" id="I-20" name="filename" onChange={(e)=>handlefileSubmit(e, 'I20')}/> 
+            </div>
+          }
+          {I983Visible3 && <div className='i983Rejected'>HR's feedback {I983Feedback}</div>}
         </AccordionDetails>
       </Accordion>
+
+
       <Accordion disabled = {I20isDisabled}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} style={{backgroundColor:'WhiteSmoke'}}>
           <Typography>I-20</Typography>
         </AccordionSummary>
         <AccordionDetails className="i20Accordion" style={{borderTop: "1px solid rgba(0, 0, 0, .125)"}}>
-          <div className='i20Pending'>Waiting for HR to approve your I-20 </div>
+        {I20Visible1 && <div className='i20Pending'>Waiting for HR to approve your I-20 </div>}
+        {I20Visible2 && 
           <div className='i20Approved'>
             <p>All documents have been approved</p> 
-            <input type="file" id="I-983" name="filename" />
           </div>
-          <div className='i20Rejected'>HR's feedback</div>
+        }
+        {I20Visible3 && <div className='i20Rejected'>HR's feedback {I20Feedback}</div>}
         </AccordionDetails>
       </Accordion>
     </div>

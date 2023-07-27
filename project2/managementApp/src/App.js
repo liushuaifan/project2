@@ -10,8 +10,8 @@ import Profile from "./components/profile";
 import EmployeeStatus from "./components/employeeStatus";
 import HrStatus from "./components/hrStatus";
 import EmployeeList from "./components/employeeList";
-import EmployeeDetail from "./components/EmployeeDetail";
-import Hiring from "./components/Hiring";
+import EmployeeDetail from "./components/employeeDetail";
+import Hiring from "./components/hiring";
 
 function App() {
   return (
@@ -25,7 +25,6 @@ function App() {
       
                 <Route path="/SignIn" element={<SignIn />} />
                 <Route path="/registration" element={<Registration />} />
-                {/* <Route path="/" element={<Onboard />} /> */}
                 <Route path="/employee/onboard" element={<Onboard />} />
                 <Route path="/employee/onboard/pending" element={<OnboardPending />} />
                 <Route path="/employee/onboard/reject" element={<OnboardReject />} />

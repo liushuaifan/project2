@@ -1,0 +1,9 @@
+.hrStatusTitle {
+  display: flex;
+  flex-direction: row;
+}
+
+.hrStatusTitle div {
+  border: 2px black solid;
+  margin-left: 20px;
+}

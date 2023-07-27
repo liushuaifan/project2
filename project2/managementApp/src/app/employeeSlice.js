@@ -41,8 +41,8 @@ export const updateEmployeeAction = createAsyncThunk(
   'employees/updateEmployees',
   async (data, thunkAPI) => {
     try {
-      // console.log("updateEmployeeAction is called");
-      // console.log("data is: ", data)
+      console.log("updateEmployeeAction is called");
+      console.log("data is: ", data)
       const employees = await updateEmployee(data);
       // thunkAPI.dispatch(removeError());
       return employees;

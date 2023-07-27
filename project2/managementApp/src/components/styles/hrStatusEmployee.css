@@ -1,0 +1,9 @@
+.hrStatusEmployeebar {
+  display: flex;
+  flex-direction: row;
+}
+
+.hrStatusEmployeebar div {
+  border: 2px black solid;
+  margin-left: 20px;
+}

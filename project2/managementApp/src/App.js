@@ -25,14 +25,14 @@ function App() {
       
                 <Route path="/SignIn" element={<SignIn />} />
                 <Route path="/registration" element={<Registration />} />
-                <Route path="/employee/onboard" element={<Onboard />} />
+                <Route path="/" element={<Onboard />} />
+                {/* <Route path="/employee/onboard" element={<Onboard />} /> */}
                 <Route path="/employee/onboard/pending" element={<OnboardPending />} />
                 <Route path="/employee/onboard/reject" element={<OnboardReject />} />
                 <Route path="/employee/profile" element={<Profile />} />
                 <Route path="/employee/:employeeId/visaStatus/" element={<EmployeeStatus />} />
 
-                <Route path="/" element={<HrStatus />} />
-                {/* <Route path="/hr/visaStatus" element={<HrStatus />} /> */}
+                <Route path="/hr/visaStatus" element={<HrStatus />} />
                 <Route path="/hr/employeeList" element={<EmployeeList />} />
                 <Route path="/hr/employeeList/:employeeId" element={<EmployeeDetail />} />
 

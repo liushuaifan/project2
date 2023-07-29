@@ -144,8 +144,6 @@ function EmployeeStatus() {
         );
     }
     reader.readAsDataURL(file);
-
-
   }
 
   return (

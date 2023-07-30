@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { createEmployee, deleteEmployee, fetchEmployees, updateEmployee } from '../services/employee';
 import { removeError, addError } from './errorSlice';
+import { signIn} from '../services/auth';
+
 
 const initialState = {
   employees: [],
@@ -22,6 +24,23 @@ export const createEmployeeAction = createAsyncThunk(
   }
 );
 
+export const authUser = createAsyncThunk(
+  'currentUser/authUser',
+  async (data, thunkAPI) => {
+    try {
+      const user = await signIn(data);
+      localStorage.setItem('token', user.token);
+      localStorage.setItem('login', true);
+      thunkAPI.dispatch(removeError());
+      return user;
+    } catch (error) {
+      const { message } = error;
+      localStorage.setItem('login', false);
+      thunkAPI.dispatch(addError(message));
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const fetchEmployeesAction = createAsyncThunk(
   'employees/fetchEmployees',

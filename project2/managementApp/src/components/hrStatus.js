@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { Accordion, AccordionSummary, AccordionDetails, Typography, Button } from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Form, Input } from 'antd';
-import HrStatusEmployee from './hrStatusEmployee';
+import HrStatusEmployee from './HrStatusEmployee';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchEmployeesAction } from '../app/employeeSlice';
 import { fetchHrsAction } from '../app/hrSlice';

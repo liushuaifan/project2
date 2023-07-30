@@ -10,8 +10,8 @@ import Profile from "./components/profile";
 import EmployeeStatus from "./components/employeeStatus";
 import HrStatus from "./components/hrStatus";
 import EmployeeList from "./components/employeeList";
-import EmployeeDetail from "./components/employeeDetail";
-import Hiring from "./components/hiring";
+import EmployeeDetail from "./components/EmployeeDetail";
+import Hiring from "./components/Hiring";
 
 function App() {
   return (

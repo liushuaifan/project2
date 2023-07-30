@@ -5,6 +5,8 @@ const errorHandler = require('./handlers/error');
 const employeeRoutes = require('./routes/employee');
 const hrRoutes = require('./routes/hr');
 const db = require('./models'); 
+const authRoutes = require('./routes/auth');
+
 
 const PORT = 8080;
 const app = express();
@@ -13,7 +15,7 @@ app.use(express.json());
 app.use(cors());
 
 
-
+app.use('/api/auth', authRoutes);
 app.use('/api/employee',
   employeeRoutes
 );

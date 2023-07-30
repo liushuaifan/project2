@@ -1,19 +1,35 @@
 import React,{useState} from 'react';
 import './styles/signin.css';
+import { useSelector, useDispatch} from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import {createEmployeeAction} from '../app/employeeSlice'
+
 
 export default function Registration() {
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
+    firstName:'',
+    lastName:''
   });
 
-  const handleSubmit = ()=>{
-
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    console.log(formData);
+    dispatch(createEmployeeAction(formData)).then(() => navigate('/signin'));
   }
 
-  const handleChange = ()=>{
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
 
-  }
   return (
     <div className="auth-form-container">
       <h2>Sign Up an account</h2>
@@ -25,6 +41,10 @@ export default function Registration() {
         <input  placeholder="youremail@gmail.com" id="email" name="email" value = {formData.email} onChange={handleChange}/>
         <label htmlFor="password">Password</label>
         <input type="password" placeholder="********" id="password" name="password" value = {formData.password} onChange={handleChange}/>
+        <label htmlFor="firstName">firstName</label>
+        <input   id="firstName" name="firstName" value = {formData.firstName} onChange={handleChange}/>
+        <label htmlFor="lastName">lastName</label>
+        <input   id="lastName" name="lastName" value = {formData.lastName} onChange={handleChange}/>
         <button type="submit" className='submitButton' onSubmit = {handleSubmit}>Create account  </button>
       </form>
 

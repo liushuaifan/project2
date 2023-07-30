@@ -11,3 +11,4 @@ mongoose.connect(process.env.MONGODB_URI, {
 module.exports.Employee = require('./employee');
 module.exports.Case = require('./case');
 module.exports.Hr = require('./hr');
+module.exports.Token = require('./signuptoken');

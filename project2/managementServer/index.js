@@ -6,7 +6,7 @@ const employeeRoutes = require('./routes/employee');
 const hrRoutes = require('./routes/hr');
 const db = require('./models'); 
 const authRoutes = require('./routes/auth');
-
+const tokenRoute = require('./routes/signuptoken');
 
 const PORT = 8080;
 const app = express();
@@ -19,6 +19,21 @@ app.use('/api/auth', authRoutes);
 app.use('/api/employee',
   employeeRoutes
 );
+
+app.use('/api/',
+  tokenRoute
+);
+
+app.get('/api/token', async function (req, res, next) {
+  try {
+    const products = await db.Token.find()
+      .sort({ createdAt: 'desc' });
+    return res.status(200).json(products);
+  } catch (err) {
+    return next(err);
+  }
+});
+
 
 app.get('/api/employee', async function (req, res, next) {
   try {

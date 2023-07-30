@@ -17,33 +17,41 @@ export default function SignIn() {
   const handleSubmit = (e)=>{
     e.preventDefault();
     // console.log(formData);
-    dispatch(authUser(formData)).then((a) => {
-      // console.log(localStorage.getItem("token"))
-      if(localStorage.getItem("login")==="true") {
-        localStorage.setItem("email", formData.email);
-        navigate(location.state?.from || '/') 
-      }
-      else alert("wrong password");
-      // navigate(location.state?.from || '/');
-    });
-  }
+    if(formData.email === 'chuwa@hr'){
+      localStorage.setItem('hr', true);
+      navigate('/hr/hiring');
+    }else{
+      localStorage.setItem('hr', false);
+      dispatch(authUser(formData)).then((a) => {
+        // console.log(localStorage.getItem("token"))
+        if(localStorage.getItem("login")==="true") {
+          localStorage.setItem("email", formData.email);
+          navigate(location.state?.from || '/') 
+        }
+        else alert("wrong password");
+        // navigate(location.state?.from || '/');
+      });
+    }
 
-  const handleSubmitHr = (e)=>{
-    // e.preventDefault();
-    // console.log(formData);
-    // dispatch(authUser(formData)).then((a) => {
-    //   // console.log(localStorage.getItem("token"))
-    //   if(localStorage.getItem("login")==="true") {
-    //     localStorage.setItem("email", formData.email);
-    //     navigate(location.state?.from || '/') 
-    //   }
-    //   else alert("wrong password");
-    //   // navigate(location.state?.from || '/');
-    // });
-
-    navigate('/hr/hiring');
 
   }
+
+  // const handleSubmitHr = (e)=>{
+  //   // e.preventDefault();
+  //   // console.log(formData);
+  //   // dispatch(authUser(formData)).then((a) => {
+  //   //   // console.log(localStorage.getItem("token"))
+  //   //   if(localStorage.getItem("login")==="true") {
+  //   //     localStorage.setItem("email", formData.email);
+  //   //     navigate(location.state?.from || '/') 
+  //   //   }
+  //   //   else alert("wrong password");
+  //   //   // navigate(location.state?.from || '/');
+  //   // });
+
+  //   navigate('/hr/hiring');
+
+  // }
 
   const handleChange = (e) => {
     setFormData({
@@ -64,13 +72,9 @@ export default function SignIn() {
         <button type="submit" className='submitButton' onSubmit = {handleSubmit}>Sign In as Employee</button>
       </form>
 
-      <a href="/hr/hiring" className='updatePassword'> sign In as hr </a>
+      {/* <a href="/hr/hiring" className='updatePassword'> sign In as hr </a> */}
 
-      <div className='formAgreement'>
-        Don't have an account? 
-        <a href="/registration" style={{color:"blue"}}> SignUp </a>
-        
-      </div>
+ 
 
       <a href="/updatePassword" className='updatePassword'> Frogot Password </a>
     </div>  

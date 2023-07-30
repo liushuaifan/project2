@@ -1,12 +1,12 @@
 import React,{useState} from 'react';
 import './styles/signin.css';
 import { useSelector, useDispatch} from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useParams, } from 'react-router-dom';
 import {createEmployeeAction} from '../app/employeeSlice'
 
 
 export default function Registration() {
-
+  const { token } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -19,8 +19,10 @@ export default function Registration() {
 
   const handleSubmit = (e)=>{
     e.preventDefault();
-    console.log(formData);
-    dispatch(createEmployeeAction(formData)).then(() => navigate('/signin'));
+    console.log(token);
+    if(token==='1') dispatch(createEmployeeAction(formData)).then(() => navigate('/signin'));
+
+
   }
 
   const handleChange = (e) => {

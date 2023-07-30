@@ -24,7 +24,7 @@ function App() {
                 {/* <Route path="*" element={<NotFound />} /> */}
       
                 <Route path="/SignIn" element={<SignIn />} />
-                <Route path="/registration" element={<Registration />} />
+                <Route path="/registration/:token" element={<Registration />} />
                 <Route path="/" element={<Onboard />} />
                 {/* <Route path="/employee/onboard" element={<Onboard />} /> */}
                 <Route path="/employee/onboard/pending" element={<OnboardPending />} />

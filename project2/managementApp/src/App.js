@@ -18,13 +18,14 @@ function App() {
     <BrowserRouter>
     <div className="App">
         
-          {/* <Navbar /> */}
+          <Navbar />
           <div className="content">
             <Routes>
                 {/* <Route path="*" element={<NotFound />} /> */}
-      
+
                 <Route path="/SignIn" element={<SignIn />} />
                 <Route path="/registration/:token" element={<Registration />} />
+                
                 <Route path="/" element={<Onboard />} />
                 {/* <Route path="/employee/onboard" element={<Onboard />} /> */}
                 <Route path="/employee/onboard/pending" element={<OnboardPending />} />

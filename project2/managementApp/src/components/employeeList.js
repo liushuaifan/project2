@@ -1,38 +1,49 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchEmployeesAction, updateEmployeeAction } from '../app/employeeSlice';
+
 
 function EmployeeList() {
 
   const navigate = new useNavigate();
+  const dispatch = useDispatch();
 
-  const [employees, setEmployees] = useState([{id:'0', name: 'Jason', ssn: '000-000-000', phone: '000-000-000'},
-  {id:'1', name: 'Ruler', ssn: '000-000-000', phone: '000-000-000'},
-  {id:'2', name: 'Alex', ssn: '000-000-000', phone: '000-000-000'},
-  {id:'3', name: 'Robert', ssn: '000-000-000', phone: '000-000-000'},
-  {id:'4', name: 'Aaron', ssn: '000-000-000', phone: '000-000-000'},
-  {id:'5', name: 'Jack', ssn: '000-000-000', phone: '000-000-000'}]);
+  useEffect(() => {
+    dispatch(fetchEmployeesAction());
+  }, []);
+
+  const [input, setInput] = useState("");
+  const { employees } = useSelector(state => state.employees);
+  console.log(employees)
 
   const handleClick = (employee) => {
-    navigate(`/hr/employeeList/${employee.id}`);
+    navigate(`/hr/employeeList/${employee._id}`);
+  }
+
+  const handleInput=(e)=>{
+    setInput(e.target.value);
   }
 
   return (
     <div className="App">
       <div>
+        <input type="text" id="fname" name="fname" onChange={(e)=>handleInput(e)}/>
         <table>
           <thead>
             <tr>
               <th>Name</th>
               <th>SSN</th>
-              <th>Phone Number</th>
+              <th>Work Authorization</th>
+              <th>Phone number</th>
+              <th>Email</th>
             </tr>
           </thead>
           <tbody>
-            {employees.map((employee => (
+            {employees && employees.filter(employee=> input==="" || employee.firstName.includes(input) || employee.lastName.includes(input)).map((employee => (
               <tr key={employee.id}>
-                <th onClick={()=> handleClick(employee)}>{employee.name}</th>
-                <th>{employee.ssn}</th>
-                <th>{employee.phone}</th>
+                <th onClick={()=> handleClick(employee)}>{employee.firstName}  {employee.lastName}</th>
+                <th>{employee.email}</th>
               </tr>
             )))}
           </tbody>

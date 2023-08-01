@@ -1,22 +1,27 @@
 import React, {useState, useEffect} from 'react';
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchEmployeesAction, updateEmployeeAction } from '../app/employeeSlice';
 
 function EmployeeDetail() {
 
   const { employeeId } = useParams();
-
-  const [employees, setEmployees] = useState([{id:'0', name: 'Jason', ssn: '000-000-000', phone: '000-000-000'},
-  {id:'1', name: 'Ruler', ssn: '000-000-000', phone: '000-000-000'},
-  {id:'2', name: 'Alex', ssn: '000-000-000', phone: '000-000-000'},
-  {id:'3', name: 'Robert', ssn: '000-000-000', phone: '000-000-000'},
-  {id:'4', name: 'Aaron', ssn: '000-000-000', phone: '000-000-000'},
-  {id:'5', name: 'Jack', ssn: '000-000-000', phone: '000-000-000'}]);
-  
-  const [employee, setEmployee] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if(employeeId){
-      setEmployee(employees.find(employee => employee.id === employeeId));
+    dispatch(fetchEmployeesAction());
+  }, []);
+
+  
+  const [employee, setEmployee] = useState(null);
+  const { employees } = useSelector(state => state.employees);
+
+  useEffect(() => {
+    console.log(employees)
+    if(employeeId && employees){
+      setEmployee(employees.find(employee => employee._id === employeeId));
+      // console.log()
+      console.log("employee is: ", employee)
     }
   }, [employeeId, employees]);
 
@@ -25,9 +30,8 @@ function EmployeeDetail() {
       {employee && (
         <>
           <div className='content-info'>
-            <div>{employee.name}</div>
-            <div>{employee.ssn}</div>
-            <div>{employee.phone}</div>
+            <div>{employee.firstName}, {employee.lastName}</div>
+            <div></div>
           </div>
         </>
       )}

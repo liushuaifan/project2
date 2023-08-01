@@ -5,16 +5,12 @@ import {createToken, fetchTokens} from '../services/token'
 
 export default function Hiring() {
   const form = useRef();
-  const [employees, setEmployees] = useState([{id:'0', name: 'Jason', ssn: '000-000-000', phone: '000-000-000'},
-  {id:'1', name: 'Ruler', ssn: '000-000-000', phone: '000-000-000'},
-  {id:'2', name: 'Alex', ssn: '000-000-000', phone: '000-000-000'},
-  {id:'3', name: 'Robert', ssn: '000-000-000', phone: '000-000-000'},
-  {id:'4', name: 'Aaron', ssn: '000-000-000', phone: '000-000-000'},
-  {id:'5', name: 'Jack', ssn: '000-000-000', phone: '000-000-000'}]);
+  const [employees, setEmployees] = useState([]);
 
   const [formData, setFormData] = useState({
     email: '',
-    name: ''
+    name: '',
+    token:''
   });
 
   useLayoutEffect(() => {
@@ -58,7 +54,7 @@ export default function Hiring() {
     const data = {
       name:formData.name,
       email:formData.email,
-      link:"http://localhost:3000/registration/1",
+      link:"http://localhost:3000/registration/" + formData.token,
       status:false
     }
     createToken(data);
@@ -80,6 +76,8 @@ export default function Hiring() {
       <input type="text" name="name"  value={formData.name} id="name" onChange={handleChange}  />
       <label  htmlFor="user_email">Email</label>
       <input type="email" name="email" value={formData.email} id="email" onChange={handleChange} />
+      <label  htmlFor="token">token</label>
+      <input type="token" name="token" value={formData.token} id="token" onChange={handleChange} />
       <label>Message</label>
       <textarea name="message" />
       <input type="submit" value="Send" />

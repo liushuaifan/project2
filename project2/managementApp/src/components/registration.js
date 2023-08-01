@@ -1,12 +1,13 @@
-import React,{useState} from 'react';
+import React,{useState, useLayoutEffect} from 'react';
 import './styles/signin.css';
 import { useSelector, useDispatch} from 'react-redux';
 import { useNavigate,useParams, } from 'react-router-dom';
-import {createEmployeeAction} from '../app/employeeSlice'
+import {createEmployeeAction} from '../app/employeeSlice';
+import {createToken, fetchTokens} from '../services/token'
 
 
 export default function Registration() {
-  const { token } = useParams();
+  let { token } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -17,10 +18,40 @@ export default function Registration() {
     lastName:''
   });
 
+  const [existtoken, setexisttoken] =  useState([])
+
+  useLayoutEffect(() => {
+
+    async function fetchData() {
+
+      try {
+        const result = await fetchTokens();
+        console.log(result);
+        setexisttoken(result);
+      } catch (error) {
+        console.error("Error fetching user cart: ", error);
+      }
+    }
+    fetchData();
+  }, []);
+
   const handleSubmit = (e)=>{
     e.preventDefault();
-    console.log(token);
-    if(token==='1') dispatch(createEmployeeAction(formData)).then(() => navigate('/signin'));
+    token = "http://localhost:3000/registration/" + token;
+    // console.log(token);
+    // console.log(existtoken);
+
+    for(let i of existtoken){
+        console.log(i.link + "   " + token);
+        if(i.link===token){
+          console.log("hello")
+            dispatch(createEmployeeAction(formData)).then(() => navigate('/signin'));
+            return;
+        }
+
+    }
+    
+    alert("token not exist")
 
 
   }

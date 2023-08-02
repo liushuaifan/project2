@@ -30,7 +30,7 @@ function Navbar() {
 
 
 
-        {localStorage.getItem("hr")==='false' && <NavItem eventKey="">
+        {localStorage.getItem("hr")==='false' && <NavItem eventKey="employee/visaStatus">
         <NavIcon>
                 <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
             </NavIcon>

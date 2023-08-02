@@ -1,17 +1,27 @@
 import React, { useRef, useEffect, useState, useLayoutEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import { useNavigate } from "react-router-dom";
-import {createToken, fetchTokens} from '../services/token'
+import {createToken, fetchTokens} from '../services/token';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchEmployeesAction } from '../app/employeeSlice';
 
 export default function Hiring() {
   const form = useRef();
-  const [employees, setEmployees] = useState([]);
+  const [employeeTokens, setEmployeeTokens] = useState([]);
 
   const [formData, setFormData] = useState({
     email: '',
     name: '',
     token:''
   });
+  const dispatch = useDispatch();
+  const navigate = new useNavigate();
+
+  useEffect(() => {
+    dispatch(fetchEmployeesAction());
+  }, []);
+
+  const { employees } = useSelector(state => state.employees);
 
   useLayoutEffect(() => {
 
@@ -20,7 +30,7 @@ export default function Hiring() {
       try {
         const result = await fetchTokens();
         console.log(result);
-        setEmployees(result);
+        setEmployeeTokens(result);
       } catch (error) {
         console.error("Error fetching user cart: ", error);
       }
@@ -33,7 +43,7 @@ export default function Hiring() {
 
       try {
         const result = await fetchTokens();
-        setEmployees(result);
+        setEmployeeTokens(result);
       } catch (error) {
         console.error("Error fetching user cart: ", error);
       }
@@ -67,6 +77,10 @@ export default function Hiring() {
       });
   };
 
+  const handleView = (email) => {
+    const employee = employees && employees.find(employee => employee.email===email);
+    navigate(`/hr/hiring/${employee._id}`);
+  }
 
 
   return (
@@ -95,12 +109,13 @@ export default function Hiring() {
             </tr>
           </thead>
           <tbody>
-            {employees.map((employee => (
-              <tr key={employee.id}>
+            {employeeTokens.map((employee => (
+              <tr key={employee._id}>
                 <th>{employee.name}</th>
                 <th >{employee.email}</th>
                 <th>{employee.link}</th>
                 <th>{employee.status}</th>
+                <th><button onClick={()=> handleView(employee.email)}>View</button></th>
               </tr>
             )))}
           </tbody>

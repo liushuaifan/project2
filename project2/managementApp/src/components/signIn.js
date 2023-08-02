@@ -26,7 +26,8 @@ export default function SignIn() {
         // console.log(localStorage.getItem("token"))
         if(localStorage.getItem("login")==="true") {
           localStorage.setItem("email", formData.email);
-          navigate(location.state?.from || '/') 
+          localStorage.setItem("employeeId", a.payload.id);
+          navigate(location.state?.from || '/employee/onboard') 
         }
         else alert("wrong password");
         // navigate(location.state?.from || '/');
@@ -76,7 +77,7 @@ export default function SignIn() {
 
  
 
-      <a href="/updatePassword" className='updatePassword'> Frogot Password </a>
+      <a href="/updatePassword" className='updatePassword'> Forgot Password </a>
     </div>  
   )
 }

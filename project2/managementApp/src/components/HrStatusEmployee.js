@@ -8,8 +8,7 @@ import './styles/hrStatusEmployee.css'
 function HrStatusEmployee({employee}) {
 
   const dispatch = useDispatch();
-  console.log(employee)
-  let index = employee.visaDocumentStatus.indexOf('pending')
+  let index = employee.visaDocumentStatus.indexOf('notSubmitted')
   const [feedback, setFeedback] = useState("");
   const [pdfUrl, setPdfUrl] = useState("");
 
@@ -33,15 +32,18 @@ function HrStatusEmployee({employee}) {
       const blob = new Blob(byteArrays, {type: contentType});
       return blob;
     }
-    const blob = b64toBlob(employee.visaDocumentLink[index], "application/pdf");
-    const blobUrl = URL.createObjectURL(blob);
-    setPdfUrl(blobUrl);
+    console.log()
+    if(index!==-1 && employee.visaDocumentLink[index]!==""){
+      const blob = b64toBlob(employee.visaDocumentLink[index], "application/pdf");
+      const blobUrl = URL.createObjectURL(blob);
+      setPdfUrl(blobUrl);
+    }
   }, []);
 
 
   const handleAprrove = () => {
     dispatch(updateEmployeeAction({ 
-      employeeId: '64bef5e47f390e96ea3c7daa', 
+      employeeId: employee._id, 
       visaDocumentName: employee.visaDocumentName[index],
       visaDocumentStatus: 'approved'
     })).then(
@@ -50,7 +52,7 @@ function HrStatusEmployee({employee}) {
 
   const handleReject = () => {
     dispatch(updateEmployeeAction({ 
-      employeeId: '64bef5e47f390e96ea3c7daa', 
+      employeeId: employee._id, 
       visaDocumentName: employee.visaDocumentName[index],
       visaDocumentStatus: 'rejected',
       visaDocumentFeedback: feedback

@@ -9,6 +9,8 @@ import './styles/onboard.css'
 function Onboard() {
 
   const dispatch = useDispatch();
+  const employeeId = localStorage.getItem('employeeId')
+
   const handleSubmit = (data) => {
     console.log("onboarding data: ", data)
     dispatch(updateEmployeeAction({ 
@@ -22,6 +24,7 @@ function Onboard() {
   const [status, setStatus] = useState('');
   const [F1Selected, setF1Selected] = useState(false);
   const [OtherSelected, setOtherSelected] = useState(false);
+
   const handleImageUpload = ()=>{
 
   }
@@ -50,7 +53,7 @@ function Onboard() {
             .replace(/^.+,/, "");
         // console.log(base64String)
         dispatch(updateEmployeeAction({ 
-          employeeId: '64bef5e47f390e96ea3c7daa', 
+          employeeId: employeeId, 
           visaDocumentName: filetype,
           visaDocumentLink: base64String, 
           visaDocumentStatus: 'pending',

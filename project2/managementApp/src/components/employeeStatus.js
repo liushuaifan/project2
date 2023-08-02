@@ -42,10 +42,11 @@ function EmployeeStatus() {
   }, []);
 
   const { employees } = useSelector(state => state.employees);
+  const employeeId = localStorage.getItem('employeeId');
 
   //增加了一个新的 useEffect，它依赖于 employees。当 employees 更新时，这个 useEffect 将会运行，找到对应的员工，然后根据员工的 VisaDocumentStatus 更新 isDisabled 的状态
   useEffect(() => {
-    const employee = employees && employees.find(employee => employee._id==='64bef5e47f390e96ea3c7daa');
+    const employee = employees && employees.find(employee => employee._id===employeeId);
     console.log(employee)
     if(employee){
       let VisaDocumentStatus = employee.visaDocumentStatus;
@@ -135,7 +136,7 @@ function EmployeeStatus() {
             .replace(/^.+,/, "");
         // console.log(base64String)
         dispatch(updateEmployeeAction({ 
-          employeeId: '64bef5e47f390e96ea3c7daa', 
+          employeeId: employeeId, 
           visaDocumentName: filetype,
           visaDocumentLink: base64String, 
           visaDocumentStatus: 'pending',

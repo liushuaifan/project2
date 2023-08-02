@@ -12,6 +12,7 @@ import HrStatus from "./components/hrStatus";
 import EmployeeList from "./components/employeeList";
 import EmployeeDetail from "./components/EmployeeDetail";
 import Hiring from "./components/Hiring";
+import EmployeeOnboardStatus from "./components/employeeOnboardStatus";
 
 function App() {
   return (
@@ -29,15 +30,15 @@ function App() {
                 <Route path="/employee/onboard" element={<Onboard />} />
                 <Route path="/employee/onboard/pending" element={<OnboardPending />} />
                 <Route path="/employee/onboard/reject" element={<OnboardReject />} />
-                <Route path="/" element={<Profile />} />
-                {/* <Route path="/employee/:employeeId/profile" element={<Profile />} /> */}
-                <Route path="/employee/:employeeId/visaStatus/" element={<EmployeeStatus />} />
+                <Route path="/employee/profile" element={<Profile />} />
+                <Route path="/employee/visaStatus/" element={<EmployeeStatus />} />
 
                 <Route path="/hr/visaStatus" element={<HrStatus />} />
                 <Route path="/hr/employeeList" element={<EmployeeList />} />
                 <Route path="/hr/employeeList/:employeeId" element={<EmployeeDetail />} />
 
                 <Route path="/hr/hiring" element={<Hiring />} />
+                <Route path="/hr/hiring/:employeeId" element={<EmployeeOnboardStatus />} />
             </Routes>
           </div>
     </div>

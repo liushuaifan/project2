@@ -8,18 +8,19 @@ import { fetchEmployeesAction, updateEmployeeAction } from '../app/employeeSlice
 function Profile() {
 
   const dispatch = useDispatch();
-
+  const employeeId = localStorage.getItem('employeeId')
+  
   useEffect(() => {
     dispatch(fetchEmployeesAction());
   }, []);
 
   const { employees } = useSelector(state => state.employees);
 
-  const employee = employees && employees.find(employee => employee._id==='64c595392fe0b7cc9fbd5b6f');
+  const employee = employees && employees.find(employee => employee._id===employeeId);
 
   const onSubmit = (data) => {
     dispatch(updateEmployeeAction({ 
-      employeeId: '64c595392fe0b7cc9fbd5b6f', 
+      employeeId: employeeId, 
       firstName: data.firstName
      }));
      setNameDisabled(true);

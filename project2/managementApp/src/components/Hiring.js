@@ -49,7 +49,7 @@ export default function Hiring() {
       }
     }
     fetchData();
-  })
+  },[])
 
   const handleChange = (e) => {
     setFormData({

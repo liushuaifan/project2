@@ -8,7 +8,7 @@ import './styles/hrStatusEmployee.css'
 function HrStatusEmployee({employee}) {
 
   const dispatch = useDispatch();
-  let index = employee.visaDocumentStatus.indexOf('notSubmitted')
+  let index = employee.visaDocumentStatus.indexOf('pending')===-1 ? employee.visaDocumentStatus.indexOf('unsubmitted') : employee.visaDocumentStatus.indexOf('pending');
   const [feedback, setFeedback] = useState("");
   const [pdfUrl, setPdfUrl] = useState("");
 

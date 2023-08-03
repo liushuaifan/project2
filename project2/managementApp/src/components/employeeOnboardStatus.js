@@ -41,7 +41,6 @@ function EmployeeOnboardStatus() {
       const blob = new Blob(byteArrays, {type: contentType});
       return blob;
     }
-    console.log()
     if(employee && employee.visaDocumentLink[0]!==""){
       const blob = b64toBlob(employee.visaDocumentLink[0], "application/pdf");
       const blobUrl = URL.createObjectURL(blob);

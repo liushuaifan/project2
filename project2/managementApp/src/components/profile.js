@@ -32,6 +32,10 @@ function Profile() {
   }
 
   const [nameDisabled, setNameDisabled] = useState('true');
+  const [addressDisabled, setAddressDisabled] = useState('true');
+  const [contactDisabled, setContactDisabled] = useState('true');
+  const [employmentDisabled, setEmploymentDisabled] = useState('true');
+  const [emergencyDisabled, setEmergencyDisabled] = useState('true');
 
   return (
     employee && (
@@ -58,17 +62,17 @@ function Profile() {
               <Input.TextArea rows={1} disabled={nameDisabled}/>
             </Form.Item>
 
-            {/* <Form.Item label="SSN" name="ssn" rules={[{required: true}]}>
+            <Form.Item label="SSN" name="ssn" rules={[{required: true}]} initialValue={employee.ssn}>
               <Input.TextArea rows={1} />
             </Form.Item>
 
-            <Form.Item label="Date of birth" name="dateOfBirth" rules={[{required: true}]}>
+            <Form.Item label="Date of birth" name="dateOfBirth" rules={[{required: true}]} initialValue={employee.dateOfBirth}>
               <Input.TextArea rows={1} />
             </Form.Item>
 
-            <Form.Item label="Gender" name="gender" rules={[{required: true}]}>
+            <Form.Item label="Gender" name="gender" rules={[{required: true}]} initialValue={employee.gender}>
               <Input.TextArea rows={1} />
-            </Form.Item> */}
+            </Form.Item>
 
             <Form.Item className='formbutton'>
               <Button type="primary" onClick={handleEdit}>Edit</Button>
@@ -80,34 +84,36 @@ function Profile() {
         </AccordionDetails>
       </Accordion>
 
-      {/* <Accordion>
+      <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} style={{backgroundColor:'WhiteSmoke'}}>
           <Typography>Address</Typography>
         </AccordionSummary>
         <AccordionDetails style={{borderTop: "1px solid rgba(0, 0, 0, .125)"}}>
-          <Form className='forms' layout="vertical" onFinish={(data) => {} }>
-            <Form.Item label="Building/apt #" name="buildingNum" rules={[{required: true}]}>
-              <Input.TextArea rows={1} />
+          <Form className='forms' layout="vertical" onFinish={onSubmit}>
+            <Form.Item label="Building/apt" name="Building/apt" rules={[{required: true}]}>
+              <Input.TextArea rows={1} disabled={addressDisabled}/>
             </Form.Item>
 
-            <Form.Item label="Street Name" name="streetName" rules={[{required: true}]}>
-              <Input.TextArea rows={1} />
+            <Form.Item label="street name" name="street name" rules={[{required: true}]}>
+              <Input.TextArea rows={1} disabled={addressDisabled}/>
             </Form.Item>
 
-            <Form.Item label="City" name="city" rules={[{required: true}]}>
-              <Input.TextArea rows={1} />
+            <Form.Item label="city" name="city" rules={[{required: true}]}>
+              <Input.TextArea rows={1} disabled={addressDisabled}/>
             </Form.Item>
 
-            <Form.Item label="State" name="state" rules={[{required: true}]}>
-              <Input.TextArea rows={1} />
+            <Form.Item label="state" name="state" rules={[{required: true}]}>
+              <Input.TextArea rows={1} disabled={addressDisabled}/>
             </Form.Item>
 
-            <Form.Item label="Zip Code" name="zip" rules={[{required: true}]}>
-              <Input.TextArea rows={1} />
+            <Form.Item label="zip" name="zip" rules={[{required: true}]}>
+              <Input.TextArea rows={1} disabled={addressDisabled}/>
             </Form.Item>
-
             <Form.Item className='formbutton'>
-              <Button type="primary" htmlType="submit">Submit</Button>
+              <Button type="primary" onClick={handleEdit}>Edit</Button>
+            </Form.Item>
+            <Form.Item className='formbutton'>
+              <Button type="primary" htmlType="submit">Save</Button>
             </Form.Item>
           </Form>
         </AccordionDetails>
@@ -120,14 +126,17 @@ function Profile() {
         <AccordionDetails style={{borderTop: "1px solid rgba(0, 0, 0, .125)"}}>
           <Form className='forms' layout="vertical" onFinish={(data) => {} }>
             <Form.Item label="Cell Phone Number" name="cellphone" rules={[{required: true}]}>
-              <Input.TextArea rows={1} />
+              <Input.TextArea rows={1} disabled={contactDisabled}/>
             </Form.Item>
 
             <Form.Item label="Work Phone Number" name="workphone" rules={[{required: true}]}>
-              <Input.TextArea rows={1} />
+              <Input.TextArea rows={1} disabled={contactDisabled}/>
             </Form.Item>
             <Form.Item className='formbutton'>
-              <Button type="primary" htmlType="submit">Submit</Button>
+              <Button type="primary" onClick={handleEdit}>Edit</Button>
+            </Form.Item>
+            <Form.Item className='formbutton'>
+              <Button type="primary" htmlType="submit">Save</Button>
             </Form.Item>
           </Form>
         </AccordionDetails>
@@ -140,19 +149,22 @@ function Profile() {
         <AccordionDetails style={{borderTop: "1px solid rgba(0, 0, 0, .125)"}}>
           <Form className='forms' layout="vertical" onFinish={(data) => {} }>
             <Form.Item label="Visa Title" name="visaTitle" rules={[{required: true}]}>
-              <Input.TextArea rows={1} />
+              <Input.TextArea rows={1} disabled={employmentDisabled}/>
             </Form.Item>
 
             <Form.Item label="Start Date" name="startDate" rules={[{required: true}]}>
-              <Input.TextArea rows={1} />
+              <Input.TextArea rows={1} disabled={employmentDisabled}/>
             </Form.Item>
 
             <Form.Item label="End Date" name="endDate" rules={[{required: true}]}>
-              <Input.TextArea rows={1} />
+              <Input.TextArea rows={1} disabled={employmentDisabled}/>
             </Form.Item>
 
             <Form.Item className='formbutton'>
-              <Button type="primary" htmlType="submit">Submit</Button>
+              <Button type="primary" onClick={handleEdit}>Edit</Button>
+            </Form.Item>
+            <Form.Item className='formbutton'>
+              <Button type="primary" htmlType="submit">Save</Button>
             </Form.Item>
           </Form>
         </AccordionDetails>
@@ -165,31 +177,34 @@ function Profile() {
         <AccordionDetails style={{borderTop: "1px solid rgba(0, 0, 0, .125)"}}>
           <Form className='forms' layout="vertical" onFinish={(data) => {} }>
             <Form.Item label="First Name" name="firstName" rules={[{required: true}]}>
-              <Input.TextArea rows={1} />
+              <Input.TextArea rows={1} disabled={emergencyDisabled}/>
             </Form.Item>
 
             <Form.Item label="Last Name" name="lastName" rules={[{required: true}]}>
-              <Input.TextArea rows={1} />
+              <Input.TextArea rows={1} disabled={emergencyDisabled}/>
             </Form.Item>
 
             <Form.Item label="Middle Name" name="middleName" rules={[{required: true}]}>
-              <Input.TextArea rows={1} />
+              <Input.TextArea rows={1} disabled={emergencyDisabled}/>
             </Form.Item>
 
             <Form.Item label="Phone" name="phone" rules={[{required: true}]}>
-              <Input.TextArea rows={1} />
+              <Input.TextArea rows={1} disabled={emergencyDisabled}/>
             </Form.Item>
 
             <Form.Item label="Email" name="email" rules={[{required: true}]}>
-              <Input.TextArea rows={1} />
+              <Input.TextArea rows={1} disabled={emergencyDisabled}/>
             </Form.Item>
 
             <Form.Item label="Relationship" name="relationship" rules={[{required: true}]}>
-              <Input.TextArea rows={1} />
+              <Input.TextArea rows={1} disabled={emergencyDisabled}/>
             </Form.Item>
 
             <Form.Item className='formbutton'>
-              <Button type="primary" htmlType="submit">Submit</Button>
+              <Button type="primary" onClick={handleEdit}>Edit</Button>
+            </Form.Item>
+            <Form.Item className='formbutton'>
+              <Button type="primary" htmlType="submit">Save</Button>
             </Form.Item>
           </Form>
         </AccordionDetails>
@@ -210,11 +225,14 @@ function Profile() {
             </Form.Item>
 
             <Form.Item className='formbutton'>
-              <Button type="primary" htmlType="submit">Submit</Button>
+              <Button type="primary" onClick={handleEdit}>Edit</Button>
+            </Form.Item>
+            <Form.Item className='formbutton'>
+              <Button type="primary" htmlType="submit">Save</Button>
             </Form.Item>
           </Form>
         </AccordionDetails>
-      </Accordion> */}
+      </Accordion> 
 
     </div>
 

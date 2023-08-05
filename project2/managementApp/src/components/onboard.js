@@ -39,7 +39,7 @@ function Onboard() {
   
   useEffect(() => {
     if (employee) {
-      console.log("Selected employee is:", employee)
+      // console.log("Selected employee is:", employee)
       const VisaDocumentLink = employee.visaDocumentLink;
       const visaDocumentStatus = employee.visaDocumentStatus;
       if (visaDocumentStatus[0] === 'unsubmitted') {
@@ -93,7 +93,16 @@ function Onboard() {
     dispatch(updateEmployeeAction({ 
       employeeId: employeeId,
       firstName: data.firstName, 
-      lastName: data.lastName
+      lastName: data.lastName,
+      address: data.currentaddress,
+      cellPhone: data.cellPhone,
+      ssn: data.SSN,
+      birthday: data.dateofbirth,
+      gender: data.gender,
+      visaTitle: "F1(OPT)",
+      emergency: data.referfirstName + " " + data.referlastName,
+      emergencyRelationship: data.relationship
+
     })).then(
     );
     let reader = new FileReader();
@@ -145,13 +154,6 @@ function Onboard() {
             <Input.TextArea rows={1} />
           </Form.Item>
 
-          {/* <div className='localimgupload'>
-              <Form.Item label="Add profile picture">
-                <input type="file" id="img" accept="image/*"  onChange={handleImageUpload}></input>
-              </Form.Item>
-            <img src={imageurl} alt="Your image" width="150" height="100" />
-          </div> */}
-
           <Form.Item label="current address" name="currentaddress" >
             <Input.TextArea rows={1} />
           </Form.Item>
@@ -165,14 +167,13 @@ function Onboard() {
           </Form.Item>
 
           <Form.Item label="Date of Birth" name="dateofbirth" >
-            <Input.TextArea rows={1} />
+            <input type="date" id="dateofbirth" name="dateofbirth"/>
           </Form.Item>
 
           <Form.Item label="Gender" name="gender" >
             <Input.TextArea rows={1} />
           </Form.Item>
           <Form.Item label="Permanent resient or citizen of US?" name="resient" >
-            {/* <h4>Permanent resient or citizen of US?</h4> */}
             <label>
                 <input
                   type="radio"
@@ -221,20 +222,26 @@ function Onboard() {
                       <input type="text" id="other" name="other"/>
                   </div>}
 
-                  <label for="startDate">Start date:</label>
+                  {/* <label for="startDate">Start date:</label>
                   <input type="date" id="startDate" name="startDate"/>
                   <label for="endDate">End date:</label>
-                  <input type="date" id="endDate" name="endDate"/>
+                  <input type="date" id="endDate" name="endDate"/> */}
                 </>
               )}      
           </Form.Item>
-
-          <Form.Item label="Reference" name="reference" >
+          <div>Your Reference</div>
+          <Form.Item label="Reference FirstName" name="referfirstName" >
+            <Input.TextArea rows={1} />
+          </Form.Item>
+          <Form.Item label="Reference LastName" name="referlastName" >
+            <Input.TextArea rows={1} />
+          </Form.Item>
+          <Form.Item label="Relationship" name="relationship" >
             <Input.TextArea rows={1} />
           </Form.Item>
 
           <Form.Item className='formbutton'>
-            <Button type="primary" htmlType="submit" onClick={handleSubmit}>Submit</Button>
+            <Button type="primary" htmlType="submit">Submit</Button>
           </Form.Item>
         </Form>
       </div>  

@@ -60,6 +60,9 @@ const employeeSchema = new mongoose.Schema({
   emergency:{
     type:String,
   },
+  emergencyRelationship:{
+    type:String,
+  },
   license:{
       type: String,
   },

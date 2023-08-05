@@ -18,10 +18,10 @@ function EmployeeOnboardStatus() {
   const [pdfUrl, setPdfUrl] = useState("");
 
   const employee = employees && employees.find(employee => employee._id===employeeId);
-  employee && console.log("Selected employee is:", employee)
+  // employee && console.log("Selected employee is:", employee)
 
   useEffect(() => {
-    console.log("employee", employee)
+    console.log("employee is :", employee)
     const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
       const byteCharacters = atob(b64Data);
       const byteArrays = [];
@@ -79,14 +79,23 @@ function EmployeeOnboardStatus() {
         <div>First Name: {employee.firstName}</div>
         <div>Last Name: {employee.lastName}</div>
         <div>Email: {employee.email}</div>
-        <div>
+        <div>Address: {employee.address}</div>
+        <div>CellPhone: {employee.cellPhone}</div>
+        <div>birthday: {employee.birthday}</div>
+        <div>SSN: {employee.ssn}</div>
+        <div>Work Authorization: {employee.visaTitle}</div>
+        <div>emergency contact: {employee.emergency}</div>
+
+        <div>Uploaded Document: </div>
+        <div> 
           {employee.visaDocumentLink[0]==="" ? "Not yet submitted" : (employee.visaDocumentStatus[0]==="approved"? "Document Approved" : (
             employee.visaDocumentStatus[0]==="rejected" ? "Document Rejected" :  
           <>
             <a href={pdfUrl}>Download Pdf file</a>
-            <div><button onClick={handleAprrove}>Approve</button></div>  
+            <div><button onClick={handleAprrove}>Approve</button></div> 
+            <div><button onClick={handleReject}>Reject</button></div>  
             <input type="text" id="fname" name="fname" onChange={(e) => handleOnChange(e)}/>
-            <div><button onClick={handleReject}>Reject</button></div> 
+            
           </>
           ))
 }

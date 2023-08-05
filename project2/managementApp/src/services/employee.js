@@ -18,6 +18,13 @@ export const updateEmployee = async ({
   employeeId,
   firstName,
   lastName,
+  address,
+  cellPhone,
+  ssn,
+  birthday,
+  gender,
+  visaTitle,
+  emergency,
   visaDocumentName,
   visaDocumentLink,
   visaDocumentStatus,
@@ -27,7 +34,21 @@ export const updateEmployee = async ({
   return await apiCall({
     url: `/api/employee/${employeeId}`,
     method: 'PUT',
-    data: { firstName, lastName, visaDocumentName, visaDocumentLink, visaDocumentStatus, visaDocumentFeedback}
+    data: { 
+      firstName, 
+      lastName, 
+      address,
+      cellPhone,
+      ssn,
+      birthday,
+      gender,
+      visaTitle,
+      emergency,
+      visaDocumentName, 
+      visaDocumentLink, 
+      visaDocumentStatus, 
+      visaDocumentFeedback,
+    }
   });
 };
 

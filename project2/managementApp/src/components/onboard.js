@@ -17,6 +17,7 @@ function Onboard() {
   const [F1Selected, setF1Selected] = useState(false);
   const [OtherSelected, setOtherSelected] = useState(false);
   const [onboardStatus, setOnboardStatus] = useState('');
+  const [file, setFile] = useState("");
 
   const [pdfUrl, setPdfUrl] = useState("");
 
@@ -95,6 +96,20 @@ function Onboard() {
       lastName: data.lastName
     })).then(
     );
+    let reader = new FileReader();
+    reader.onloadend = function () {
+        const base64String = reader.result.replace("data:", "")
+            .replace(/^.+,/, "");
+        dispatch(updateEmployeeAction({ 
+          employeeId: employeeId, 
+          visaDocumentName: 'Receipt',
+          visaDocumentLink: base64String, 
+          visaDocumentStatus: 'pending',
+          visaDocumentFeedback: ''
+        })).then(
+        );
+    }
+    reader.readAsDataURL(file);
   };
 
   const handleSelect= (visaType)=> {
@@ -110,26 +125,9 @@ function Onboard() {
     }
   }
 
-  const handlefileSubmit = (event, filetype) =>{
+  const handlefileSubmit = (event) =>{
     const file = event.target.files[0];
-    console.log("filetype is: ",filetype)
-    // console.log("file is: ", file);
-
-    let reader = new FileReader();
-    reader.onloadend = function () {
-        const base64String = reader.result.replace("data:", "")
-            .replace(/^.+,/, "");
-        // console.log(base64String)
-        dispatch(updateEmployeeAction({ 
-          employeeId: employeeId, 
-          visaDocumentName: filetype,
-          visaDocumentLink: base64String, 
-          visaDocumentStatus: 'pending',
-          visaDocumentFeedback: ''
-        })).then(
-        );
-    }
-    reader.readAsDataURL(file);
+    setFile(file);
   }
 
   let content;
@@ -236,7 +234,7 @@ function Onboard() {
           </Form.Item>
 
           <Form.Item className='formbutton'>
-            <Button type="primary" htmlType="submit">Submit</Button>
+            <Button type="primary" htmlType="submit" onClick={handleSubmit}>Submit</Button>
           </Form.Item>
         </Form>
       </div>  

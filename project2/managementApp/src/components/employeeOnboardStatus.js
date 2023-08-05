@@ -80,13 +80,16 @@ function EmployeeOnboardStatus() {
         <div>Last Name: {employee.lastName}</div>
         <div>Email: {employee.email}</div>
         <div>
-          {employee.visaDocumentLink[0]==="" ? "Not yet submitted" : 
+          {employee.visaDocumentLink[0]==="" ? "Not yet submitted" : (employee.visaDocumentStatus[0]==="approved"? "Document Approved" : (
+            employee.visaDocumentStatus[0]==="rejected" ? "Document Rejected" :  
           <>
-              <a href={pdfUrl}>Download Pdf file</a>
-              <div><button onClick={handleAprrove}>Approve</button></div>  
-              <input type="text" id="fname" name="fname" onChange={(e) => handleOnChange(e)}/>
-              <div><button onClick={handleReject}>Reject</button></div> 
-            </>}
+            <a href={pdfUrl}>Download Pdf file</a>
+            <div><button onClick={handleAprrove}>Approve</button></div>  
+            <input type="text" id="fname" name="fname" onChange={(e) => handleOnChange(e)}/>
+            <div><button onClick={handleReject}>Reject</button></div> 
+          </>
+          ))
+}
         </div>
       </>))
     )

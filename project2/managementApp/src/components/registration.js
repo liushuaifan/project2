@@ -15,7 +15,13 @@ export default function Registration() {
     email: '',
     password: '',
     firstName:'',
-    lastName:''
+    lastName:'',
+    address:'',
+    birthday:'',
+    emergency:'',
+    gender:'',
+    ssn:'',
+    visaTitle:''
   });
 
   const [existtoken, setexisttoken] =  useState([])

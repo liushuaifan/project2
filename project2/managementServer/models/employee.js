@@ -29,15 +29,19 @@ const employeeSchema = new mongoose.Schema({
   },
   ssn: {
     type: String,
+    default:""
   },
   birthday: {
     type: Date,
+    default:""
   },
   gender: {
     type: String,
+    default:""
   },
   address: {
     type: String,
+    default:""
   },
   cellPhone: {
     type: Number,
@@ -47,6 +51,7 @@ const employeeSchema = new mongoose.Schema({
   },
   visaTitle: {
     type: String,
+    default:""
   },
   visaStatus: {
     type: String,
@@ -59,6 +64,7 @@ const employeeSchema = new mongoose.Schema({
   },
   emergency:{
     type:String,
+    default:""
   },
   emergencyRelationship:{
     type:String,

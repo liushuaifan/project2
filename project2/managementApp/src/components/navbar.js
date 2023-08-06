@@ -13,6 +13,11 @@ function Navbar() {
           <SideNav
     onSelect={(selected) => {
         // Add your code here
+        if(selected==='signin'){
+            localStorage.setItem("login",'false')
+            localStorage.setItem("hr",'false')
+        }
+
         navigate('/'+selected)
     }}
 >
@@ -72,7 +77,7 @@ function Navbar() {
 
 
 
-        <NavItem eventKey="logout">
+        <NavItem eventKey="signin">
             <NavIcon>
                 <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
             </NavIcon>

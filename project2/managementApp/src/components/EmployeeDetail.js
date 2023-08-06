@@ -30,8 +30,15 @@ function EmployeeDetail() {
       {employee && (
         <>
           <div className='content-info'>
-            <div>{employee.firstName}, {employee.lastName}</div>
-            <div></div>
+            <p>{employee.firstName}  {employee.lastName}</p>
+            <p> email is : {employee.email}</p>
+            <p>address is : {employee.address}</p>
+            <p>birthday is : {employee.birthday}</p>
+            <p>emergency number is : {employee.emergency}</p>
+            <p>gender is: {employee.gender}</p>
+            <p>ssn number is: {employee.ssn}</p>
+            <p>visaTitle is : {employee.visaTitle}</p>
+  
           </div>
         </>
       )}

@@ -28,7 +28,7 @@ function EmployeeList() {
   return (
     <div className="App">
       <div>
-        <input type="text" id="fname" name="fname" onChange={(e)=>handleInput(e)}/>
+        <input type="text" id="fname" name="fname" onChange={(e)=>handleInput(e)}/> search for an employee by first name or last name
         <table>
           <thead>
             <tr>

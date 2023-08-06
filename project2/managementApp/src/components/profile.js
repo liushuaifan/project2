@@ -19,6 +19,10 @@ function Profile() {
     dispatch(fetchEmployeesAction());
   }, []);
 
+  const { employees, isLoading } = useSelector(state => state.employees);
+
+  const employee = employees && employees.find(employee => employee._id===employeeId);
+
   useEffect(() => {
     if(employee){
       const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
@@ -41,6 +45,7 @@ function Profile() {
         return blob;
       }
       if(employee.visaDocumentLink[0]!==""){
+        console.log("aaaaaa")
         const blob = b64toBlob(employee.visaDocumentLink[0], "application/pdf");
         const blobUrl = URL.createObjectURL(blob);
         setReceiptPdfUrl(blobUrl);
@@ -62,11 +67,7 @@ function Profile() {
       }
     }
    
-  }, []);
-
-  const { employees } = useSelector(state => state.employees);
-
-  const employee = employees && employees.find(employee => employee._id===employeeId);
+  }, [employee]);
 
   const onNameSubmit = (data) => {
     dispatch(updateEmployeeAction({ 
@@ -141,6 +142,9 @@ function Profile() {
   const [emergencyDisabled, setEmergencyDisabled] = useState('true');
 
   return (
+    isLoading ? (
+      <div>Loading...</div>
+    ) : 
     employee && (
       <div>
       <Accordion>
@@ -288,7 +292,7 @@ function Profile() {
               <Input.TextArea rows={1} disabled={emergencyDisabled}/>
             </Form.Item> */}
 
-            <Form.Item label="Relationship" name="relationship" rules={[{required: true}]} initialValue={employee.emergencyRelationship}>
+            <Form.Item label="relationship" name="relationship" rules={[{required: true}]} initialValue={employee.emergencyRelationship}>
               <Input.TextArea rows={1} disabled={emergencyDisabled}/>
             </Form.Item>
 

@@ -62,7 +62,11 @@ const employeeSchema = new mongoose.Schema({
   visaEndDate: {
     type: Number,
   },
-  emergency:{
+  emergencyFirstName:{
+    type:String,
+    default:""
+  },
+  emergencyLastName:{
     type:String,
     default:""
   },

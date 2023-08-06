@@ -84,7 +84,7 @@ function EmployeeOnboardStatus() {
         <div>birthday: {employee.birthday}</div>
         <div>SSN: {employee.ssn}</div>
         <div>Work Authorization: {employee.visaTitle}</div>
-        <div>emergency contact: {employee.emergency}</div>
+        <div>emergency contact: {employee.emergencyFirstName} {employee.emergencyLastName}</div>
 
         <div>Uploaded Document: </div>
         <div> 

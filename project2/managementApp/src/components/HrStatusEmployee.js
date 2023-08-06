@@ -9,6 +9,7 @@ function HrStatusEmployee({employee}) {
 
   const dispatch = useDispatch();
   let index = employee.visaDocumentStatus.indexOf('pending')===-1 ? employee.visaDocumentStatus.indexOf('unsubmitted') : employee.visaDocumentStatus.indexOf('pending');
+  let rejectIndex = employee.visaDocumentStatus.indexOf('rejected');
   const [feedback, setFeedback] = useState("");
   const [pdfUrl, setPdfUrl] = useState("");
 
@@ -69,7 +70,12 @@ function HrStatusEmployee({employee}) {
     <tr key={employee.id}>
       <th>{employee.firstName}</th>
       <th>OPT</th>
-      {index!==-1 ? 
+      {index!==-1 ? rejectIndex!==-1? 
+      <>
+        <th>{employee.visaDocumentName[rejectIndex]}</th>
+        <th>{employee.visaDocumentStatus[rejectIndex]}</th>
+        <th>Waiting for resubmission</th>
+      </> : 
       <>
         <th>{employee.visaDocumentName[index]}</th>
         <th>{employee.visaDocumentStatus[index]}</th>
@@ -83,6 +89,8 @@ function HrStatusEmployee({employee}) {
             </>
         )}</th>
       </>
+      
+      
        : "All done" }
       
     </tr>

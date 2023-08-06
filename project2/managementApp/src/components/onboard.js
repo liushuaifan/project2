@@ -95,12 +95,13 @@ function Onboard() {
       firstName: data.firstName, 
       lastName: data.lastName,
       address: data.currentaddress,
-      cellPhone: data.cellPhone,
+      cellPhone: data.cellphonenumber,
       ssn: data.SSN,
       birthday: data.dateofbirth,
       gender: data.gender,
       visaTitle: "F1(OPT)",
-      emergency: data.referfirstName + " " + data.referlastName,
+      emergencyFirstName: data.referfirstName,
+      emergencyLastName: data.referlastName,
       emergencyRelationship: data.relationship
 
     })).then(
@@ -154,11 +155,11 @@ function Onboard() {
             <Input.TextArea rows={1} />
           </Form.Item>
 
-          <Form.Item label="current address" name="currentaddress" >
+          <Form.Item label="Current Address" name="currentaddress" >
             <Input.TextArea rows={1} />
           </Form.Item>
 
-          <Form.Item label="cellphone number" name="cellphonenumber" >
+          <Form.Item label="Cellphone Number" name="cellphonenumber" >
             <Input.TextArea rows={1} />
           </Form.Item>
 
@@ -173,6 +174,7 @@ function Onboard() {
           <Form.Item label="Gender" name="gender" >
             <Input.TextArea rows={1} />
           </Form.Item>
+          
           <Form.Item label="Permanent resient or citizen of US?" name="resient" >
             <label>
                 <input
@@ -229,11 +231,12 @@ function Onboard() {
                 </>
               )}      
           </Form.Item>
+
           <div>Your Reference</div>
-          <Form.Item label="Reference FirstName" name="referfirstName" >
+          <Form.Item label="First Name" name="referfirstName" >
             <Input.TextArea rows={1} />
           </Form.Item>
-          <Form.Item label="Reference LastName" name="referlastName" >
+          <Form.Item label="Last Name" name="referlastName" >
             <Input.TextArea rows={1} />
           </Form.Item>
           <Form.Item label="Relationship" name="relationship" >
@@ -305,32 +308,96 @@ function Onboard() {
             <Input.TextArea rows={1} />
           </Form.Item>
   
-          <Form.Item label="current address" name="currentaddress" >
+          <Form.Item label="Current address" name="currentaddress" initialValue={employee.address}>
             <Input.TextArea rows={1} />
           </Form.Item>
   
-          <Form.Item label="cellphone number" name="cellphonenumber" >
+          <Form.Item label="Cellphone number" name="cellphonenumber" initialValue={employee.cellPhone}>
             <Input.TextArea rows={1} />
           </Form.Item>
   
-          <Form.Item label="SSN" name="SSN" >
+          <Form.Item label="SSN" name="SSN" initialValue={employee.ssn}>
             <Input.TextArea rows={1} />
           </Form.Item>
   
-          <Form.Item label="Date of Birth" name="dateofbirth" >
+          <Form.Item label="Date of Birth" name="dateofbirth" initialValue={employee.birthday}>
+            <input type="date" id="dateofbirth" name="dateofbirth"/>
+          </Form.Item>
+  
+          <Form.Item label="Gender" name="gender" initialValue={employee.gender}>
             <Input.TextArea rows={1} />
           </Form.Item>
   
-          <Form.Item label="Gender" name="gender" >
+          <Form.Item label="Permanent resient or citizen of US?" name="resient" >
+            <label>
+                <input
+                  type="radio"
+                  name="status"
+                  value="yes"
+                  onChange={(e) => setStatus(e.target.value)}
+                />
+                Yes
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="status"
+                  value="no"
+                  onChange={(e) => setStatus(e.target.value)}
+                />
+                No
+              </label>
+              {status === 'yes' && (
+                <>
+                  <label for="resident">Resident Type</label>
+                  <select name="resident" id="resident">
+                    <option value="greenCard">Green Card</option>
+                    <option value="citizen">Citizen</option>
+                  </select>
+                </>
+              )}
+              {status === 'no' && (
+                <>
+                  <label for="workAuthorization">What is your work authorization?</label>
+                  <select name="workAuthorization" id="workAuthorization" onChange={(e) => handleSelect(e.target.value)}>
+                    <option value="H1-B">H1-B</option>
+                    <option value="L2">L2</option>
+                    <option value="F1">F1(CPT/OPT)</option>
+                    <option value="H4">H4</option>
+                    <option value="other">Other</option>
+                  </select>
+                  {F1Selected && 
+                  <div className='receiptBox'>
+                    <p>Please upload a copy of your OPT Receipt</p> 
+                    <input type="file" id="optReceipt" name="filename" onChange={(e)=>handlefileSubmit(e, 'Receipt')}/>
+                  </div>}
+                  {OtherSelected && 
+                    <div className='otherBox'>
+                      <p>Please enter the visa title</p> 
+                      <input type="text" id="other" name="other"/>
+                  </div>}
+
+                  {/* <label for="startDate">Start date:</label>
+                  <input type="date" id="startDate" name="startDate"/>
+                  <label for="endDate">End date:</label>
+                  <input type="date" id="endDate" name="endDate"/> */}
+                </>
+              )}      
+          </Form.Item>
+
+          <div>Your Reference</div>
+          <Form.Item label="First Name" name="referfirstName" initialValue={employee.emergencyFirstName}>
+            <Input.TextArea rows={1} />
+          </Form.Item>
+          <Form.Item label="Last Name" name="referlastName" initialValue={employee.emergencyLastName}>
+            <Input.TextArea rows={1} />
+          </Form.Item>
+          <Form.Item label="Relationship" name="relationship" initialValue={employee.emergencyRelationship}>
             <Input.TextArea rows={1} />
           </Form.Item>
   
-          <Form.Item label="Reference" name="reference" >
-            <Input.TextArea rows={1} />
-          </Form.Item>
-  
-          <Form.Item label="Submitted Document" name="document" >
-              <a href={pdfUrl}>Download Pdf file</a>
+          <Form.Item className='formbutton'>
+            <Button type="primary" htmlType="submit">Submit</Button>
           </Form.Item>
         </Form>
       </div>  

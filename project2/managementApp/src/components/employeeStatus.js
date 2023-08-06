@@ -160,7 +160,12 @@ function EmployeeStatus() {
             <p>Please upload a copy of your OPT EAD</p> 
             <input type="file" id="optEAD" name="filename" onChange={(e)=>handlefileSubmit(e, 'EAD')}/>
           </div>}
-          {receiptVisible3 && <div className='receiptRejected'>HR's feedback: {receiptFeedback}</div>}
+          {receiptVisible3 && 
+          <>
+            <div>Your document is rejected. Please resubmit it!</div>
+            <div className='receiptRejected'>HR feedback: {receiptFeedback}</div>
+          </>
+          }
         </AccordionDetails>
       </Accordion>
 
@@ -183,7 +188,12 @@ function EmployeeStatus() {
               <input type="file" id="I-983" name="filename" onChange={(e)=>handlefileSubmit(e, 'I983')}/>
             </div>
           </div>}
-          {EADVisible3 && <div className='eadRejected'>HR's feedback {EADFeedback}</div>}
+          {EADVisible3 && 
+          <>
+            <div>Your document is rejected. Please resubmit it!</div>
+            <div className='eadRejected'>HR feedback: {EADFeedback}</div>
+          </>
+          }
         </AccordionDetails>
       </Accordion>
 
@@ -200,7 +210,12 @@ function EmployeeStatus() {
               <input type="file" id="I-20" name="filename" onChange={(e)=>handlefileSubmit(e, 'I20')}/> 
             </div>
           }
-          {I983Visible3 && <div className='i983Rejected'>HR's feedback {I983Feedback}</div>}
+          {I983Visible3 && 
+          <>
+            <div>Your document is rejected. Please resubmit it!</div>
+            <div className='i983Rejected'>HR feedback: {I983Feedback}</div>
+          </>
+          }
         </AccordionDetails>
       </Accordion>
 
@@ -216,7 +231,12 @@ function EmployeeStatus() {
             <p>All documents have been approved</p> 
           </div>
         }
-        {I20Visible3 && <div className='i20Rejected'>HR's feedback {I20Feedback}</div>}
+        {I20Visible3 && 
+          <>
+          <div>Your document is rejected. Please resubmit it!</div>
+          <div className='i20Rejected'>HR feedback: {I20Feedback}</div>
+          </>
+        }
         </AccordionDetails>
       </Accordion>
     </div>

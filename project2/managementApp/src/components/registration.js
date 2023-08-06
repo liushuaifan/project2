@@ -21,7 +21,11 @@ export default function Registration() {
     emergency:'',
     gender:'',
     ssn:'',
-    visaTitle:''
+    visaTitle:'',
+    visaDocumentName:["Receipt","EAD","I983","I20"],
+    visaDocumentStatus:["unsubmitted","unsubmitted","unsubmitted","unsubmitted"],
+    visaDocumentFeedback:["","","",""],
+    visaDocumentLink:["","","",""]
   });
 
   const [existtoken, setexisttoken] =  useState([])

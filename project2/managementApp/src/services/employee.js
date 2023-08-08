@@ -4,13 +4,47 @@ export const createEmployee = async ({
   email, 
   password,
   firstName,
-  lastName
+  lastName,
+  address,
+  cellPhone,
+  ssn,
+  birthday,
+  gender,
+  visaTitle,
+  visaStartDate,
+  visaEndDate,
+  emergencyFirstName,
+  emergencyLastName,
+  emergencyRelationship,
+  visaDocumentName,
+  visaDocumentLink,
+  visaDocumentStatus,
+  visaDocumentFeedback
  }
   ) => {
   return await apiCall({
     url: `/api/employee/employeeSignup`,
     method: 'POST',
-    data: { email, password, firstName, lastName }
+    data: { 
+      email, 
+      password, 
+      firstName, 
+      lastName, 
+      address,
+      cellPhone,
+      ssn,
+      birthday,
+      gender,
+      visaTitle,
+      visaStartDate,
+      visaEndDate,
+      emergencyFirstName,
+      emergencyLastName,
+      emergencyRelationship,
+      visaDocumentName,
+      visaDocumentLink,
+      visaDocumentStatus,
+      visaDocumentFeedback }
   });
 };
 

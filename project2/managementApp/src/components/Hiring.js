@@ -85,7 +85,7 @@ export default function Hiring() {
 
   return (
     <div>
-      <form ref={form} onSubmit={sendEmail}>
+      <form ref={form} onSubmit={sendEmail} style={{ marginBottom: '50px' }}>
       <label>Name</label>
       <input type="text" name="name"  value={formData.name} id="name" onChange={handleChange}  />
       <label  htmlFor="user_email">Email</label>
@@ -113,7 +113,7 @@ export default function Hiring() {
               <tr key={employee._id}>
                 <th>{employee.name}</th>
                 <th >{employee.email}</th>
-                <th>{employee.link}</th>
+                <th>{employee.link.substring(employee.link.lastIndexOf('/') + 1)}</th>
                 <th>{employee.status}</th>
                 <th><button onClick={()=> handleView(employee.email)}>View</button></th>
               </tr>

@@ -33,6 +33,15 @@ function Navbar() {
             </NavText>
         </NavItem> }
 
+        {localStorage.getItem("hr")==='false' && <NavItem eventKey="employee/onboard">
+            <NavIcon>
+                <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
+            </NavIcon>
+            <NavText>
+                Onboarding
+            </NavText>
+        </NavItem> }
+
 
 
         {localStorage.getItem("hr")==='false' && <NavItem eventKey="employee/visaStatus">
@@ -40,7 +49,7 @@ function Navbar() {
                 <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
             </NavIcon>
             <NavText>
-                visa status management
+                Visa Status Management
             </NavText>
         </NavItem> }
 
@@ -60,7 +69,7 @@ function Navbar() {
                 <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
             </NavIcon>
             <NavText>
-                visa status management
+                Visa Status Management
             </NavText>
         </NavItem> }
 
@@ -73,17 +82,13 @@ function Navbar() {
             </NavText>
         </NavItem> }
 
-
-
-
-
         <NavItem eventKey="signin">
             <NavIcon>
                 <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
             </NavIcon>
 
             <NavText>
-                logout
+                Logout
             </NavText>
         </NavItem>
 

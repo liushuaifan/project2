@@ -106,7 +106,8 @@ function Profile() {
   const onEmergencySubmit = (data) => {
     dispatch(updateEmployeeAction({ 
       employeeId: employeeId, 
-      emergency: data.Name,
+      emergencyFirstName: data.emergencyFirstName,
+      emergencyLastName: data.emergencyLastName,
       emergencyRelationship: data.relationship
      }));
      setEmergencyDisabled(true);
@@ -159,10 +160,6 @@ function Profile() {
             <Form.Item label="Last Name" name="lastName" rules={[{required: true}]} initialValue={employee.lastName}>
               <Input.TextArea rows={1} disabled={nameDisabled}/>
             </Form.Item>
-
-            {/* <Form.Item label="Add profile picture">
-              <input type="file" id="img" accept="image/*"></input>
-              </Form.Item> */}
 
             <Form.Item label="Email" name="email" rules={[{required: true}]} initialValue={employee.email}>
               <Input.TextArea rows={1} disabled/>
@@ -255,11 +252,11 @@ function Profile() {
               <Input.TextArea rows={1} disabled={employmentDisabled}/>
             </Form.Item>
 
-            <Form.Item label="Start Date" name="startDate" rules={[{required: true}]}>
+            <Form.Item label="Start Date" name="startDate" rules={[{required: true}]} initialValue={employee.visaStartDate}>
               <Input.TextArea rows={1} disabled={employmentDisabled}/>
             </Form.Item>
 
-            <Form.Item label="End Date" name="endDate" rules={[{required: true}]}>
+            <Form.Item label="End Date" name="endDate" rules={[{required: true}]} initialValue={employee.visaEndDate}>
               <Input.TextArea rows={1} disabled={employmentDisabled}/>
             </Form.Item>
 
@@ -279,7 +276,11 @@ function Profile() {
         </AccordionSummary>
         <AccordionDetails style={{borderTop: "1px solid rgba(0, 0, 0, .125)"}}>
           <Form className='forms' layout="vertical" onFinish={onEmergencySubmit}>
-            <Form.Item label="Name" name="Name" rules={[{required: true}]} initialValue={employee.emergency}>
+            <Form.Item label="First Name" name="emergencyFirstName" rules={[{required: true}]} initialValue={employee.emergencyFirstName}>
+              <Input.TextArea rows={1} disabled={emergencyDisabled}/>
+            </Form.Item>
+
+            <Form.Item label="Last Name" name="emergencyLastName" rules={[{required: true}]} initialValue={employee.emergencyLastName}>
               <Input.TextArea rows={1} disabled={emergencyDisabled}/>
             </Form.Item>
 

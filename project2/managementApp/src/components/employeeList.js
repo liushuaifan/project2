@@ -37,18 +37,17 @@ function EmployeeList() {
 
   const navigate = new useNavigate();
   const dispatch = useDispatch();
-  const [isLoading,setIsLoading] = useState(false);
+  const [isLoad,setIsLoad] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoad(true);
     dispatch(fetchEmployeesAction());
   }, []);
 
 
   const [input, setInput] = useState("");
-  const { employees } = useSelector(state => state.employees);
+  const { employees, isLoading } = useSelector(state => state.employees);
   rows = employees;
-  console.log(11+" "+employees)
 
   const handleClick = (employee) => {
     navigate(`/hr/employeeList/${employee._id}`);
@@ -59,10 +58,12 @@ function EmployeeList() {
   }
 
   return (
-
+    isLoading ? (
+      <div>Loading...</div>
+    ) : 
       <div className='wrapper'>
-        <input type="text" id="fname" name="fname" onChange={(e)=>handleInput(e)}/> search for an employee by first name or last name
-        <table className="table">
+        <input type="text" id="fname" name="fname" onChange={(e)=>handleInput(e)} placeholder='Type Employee Name' style={{marginBottom:'30px'}}/>
+        <table className="table" >
           <thead className="thead">
             <tr lassName="trHead">
               <th className="th">Name</th>
@@ -86,22 +87,6 @@ function EmployeeList() {
         </table>
 
       </div>
-
-    //   <div style={{ height: 400, width: '100%' }}>
-    //   <DataGrid
-    //     rows={employees}
-    //     columns={columns}
-    //     getRowId={(row) =>  row.lastName + row.firstName}
-    //     isLoading={isLoading}
-    //     initialState={{
-    //       pagination: {
-    //         paginationModel: { page: 0, pageSize: 5 },
-    //       },
-    //     }}
-    //     pageSizeOptions={[5, 10]}
-    //     checkboxSelection
-    //   />
-    // </div>
   )
 }
 

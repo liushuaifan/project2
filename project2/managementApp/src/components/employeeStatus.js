@@ -128,21 +128,19 @@ function EmployeeStatus() {
   const handlefileSubmit = (event, filetype) =>{
     const file = event.target.files[0];
     console.log("filetype is: ",filetype)
-    // console.log("file is: ", file);
-
+    console.log("file is: ", file)
     let reader = new FileReader();
     reader.onloadend = function () {
         const base64String = reader.result.replace("data:", "")
             .replace(/^.+,/, "");
-        // console.log(base64String)
+        console.log("base64String is: ", base64String)
         dispatch(updateEmployeeAction({ 
           employeeId: employeeId, 
           visaDocumentName: filetype,
           visaDocumentLink: base64String, 
           visaDocumentStatus: 'pending',
           visaDocumentFeedback: ''
-        })).then(
-        );
+        }))
     }
     reader.readAsDataURL(file);
   }
@@ -179,11 +177,11 @@ function EmployeeStatus() {
           {EADVisible2 && <div className='eadApproved'>
             <p>Please download and fill out the I-983 form</p> 
             <div className='i983file'>
-              <a href="/images/myw3schoolsimage.jpg" download>
-                <img src="/images/myw3schoolsimage.jpg" alt="Empty Template" width="104" height="142" />
+              <a href="https://www.africau.edu/images/default/sample.pdf" download>
+                <img src="https://www.africau.edu/images/default/sample.pdf" alt="Empty Template" width="104" height="142" />
               </a>
-              <a href="/images/myw3schoolsimage.jpg" download>
-                <img src="/images/myw3schoolsimage.jpg" alt="Sample Template" width="104" height="142" />
+              <a href="https://www.africau.edu/images/default/sample.pdf" download>
+                <img src="https://www.africau.edu/images/default/sample.pdf" alt="Sample Template" width="104" height="142" />
               </a>
               <input type="file" id="I-983" name="filename" onChange={(e)=>handlefileSubmit(e, 'I983')}/>
             </div>

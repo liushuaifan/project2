@@ -1,7 +1,7 @@
 import React, { useEffect, useState  } from 'react';
 import { Button, Form, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { createEmployeeAction, fetchEmployeesAction, updateEmployeeAction } from '../app/employeeSlice';
+import { fetchEmployeesAction, updateEmployeeAction } from '../app/employeeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './styles/onboard.css'
@@ -111,10 +111,6 @@ function Onboard() {
       setPdfUrl(blobUrl);
     }
   }, [employee]);
-
-  const handleImageUpload = ()=>{
-
-  }
 
   const handleSubmit = (data) => {
     console.log("onboarding data: ", data.startDate)

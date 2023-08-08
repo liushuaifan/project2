@@ -29,14 +29,14 @@ function EmployeeDetail() {
       {employee && (
         <>
           <div className='content-info'>
-            <p>{employee.firstName}  {employee.lastName}</p>
-            <p> email is : {employee.email}</p>
-            <p>address is : {employee.address}</p>
-            <p>birthday is : {employee.birthday}</p>
-            <p>emergency number is : {employee.emergency}</p>
-            <p>gender is: {employee.gender}</p>
-            <p>ssn number is: {employee.ssn}</p>
-            <p>visaTitle is : {employee.visaTitle}</p>
+            <p><b>{employee.firstName}  {employee.lastName}</b></p>
+            <p><b>Email:</b> {employee.email}</p>
+            <p><b>Address:</b> {employee.address}</p>
+            <p><b>Birthday:</b> {employee.birthday}</p>
+            <p><b>Gender:</b> {employee.gender}</p>
+            <p><b>SSN Number:</b> {employee.ssn}</p>
+            <p><b>VisaTitle:</b> {employee.visaTitle}</p>
+            <p><b>Emergency Member:</b> {employee.emergencyFirstName}  {employee.emergencyLastName}</p>
   
           </div>
         </>

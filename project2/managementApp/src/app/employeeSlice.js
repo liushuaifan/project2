@@ -75,8 +75,6 @@ export const deleteEmployeeAction = createAsyncThunk(
   'employees/deleteEmployees',
   async (data, thunkAPI) => {
     try {
-      // console.log("deleteEmployeeAction is called");
-      // console.log("data is: ", data)
       const employees = await deleteEmployee(data);
       // thunkAPI.dispatch(removeError());
       return employees;

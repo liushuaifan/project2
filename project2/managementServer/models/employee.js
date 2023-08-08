@@ -32,7 +32,7 @@ const employeeSchema = new mongoose.Schema({
     default:""
   },
   birthday: {
-    type: Date,
+    type: String,
     default:""
   },
   gender: {
@@ -57,10 +57,12 @@ const employeeSchema = new mongoose.Schema({
     type: String,
   },
   visaStartDate: {
-    type: Number,
+    type: String,
+    default:""
   },
   visaEndDate: {
-    type: Number,
+    type: String,
+    default:""
   },
   emergencyFirstName:{
     type:String,

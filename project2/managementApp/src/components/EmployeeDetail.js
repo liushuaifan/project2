@@ -20,7 +20,6 @@ function EmployeeDetail() {
     console.log(employees)
     if(employeeId && employees){
       setEmployee(employees.find(employee => employee._id === employeeId));
-      // console.log()
       console.log("employee is: ", employee)
     }
   }, [employeeId, employees]);

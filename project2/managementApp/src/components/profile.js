@@ -45,7 +45,6 @@ function Profile() {
         return blob;
       }
       if(employee.visaDocumentLink[0]!==""){
-        console.log("aaaaaa")
         const blob = b64toBlob(employee.visaDocumentLink[0], "application/pdf");
         const blobUrl = URL.createObjectURL(blob);
         setReceiptPdfUrl(blobUrl);

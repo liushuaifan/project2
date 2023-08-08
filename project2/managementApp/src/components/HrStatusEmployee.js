@@ -33,7 +33,7 @@ function HrStatusEmployee({employee}) {
       const blob = new Blob(byteArrays, {type: contentType});
       return blob;
     }
-    console.log()
+
     if(index!==-1 && employee.visaDocumentLink[index]!==""){
       const blob = b64toBlob(employee.visaDocumentLink[index], "application/pdf");
       const blobUrl = URL.createObjectURL(blob);

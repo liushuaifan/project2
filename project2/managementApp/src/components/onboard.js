@@ -30,6 +30,35 @@ function Onboard() {
   const { employees } = useSelector(state => state.employees);
   
   useEffect(() => {
+    if(employee){
+      const b64toBlob = (b64Data, contentType='', sliceSize=512) => {
+        const byteCharacters = atob(b64Data);
+        const byteArrays = [];
+      
+        for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+          const slice = byteCharacters.slice(offset, offset + sliceSize);
+      
+          const byteNumbers = new Array(slice.length);
+          for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+          }
+      
+          const byteArray = new Uint8Array(byteNumbers);
+          byteArrays.push(byteArray);
+        }
+      
+        const blob = new Blob(byteArrays, {type: contentType});
+        return blob;
+      }
+      if(employee.visaDocumentLink[0]!==""){
+        const blob = b64toBlob(employee.visaDocumentLink[0], "application/pdf");
+        const blobUrl = URL.createObjectURL(blob);
+        setPdfUrl(blobUrl);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     if(employees){
       const matchedEmployee = employees.find(emp => emp._id === employeeId);
       setEmployee(matchedEmployee);
@@ -39,7 +68,6 @@ function Onboard() {
   
   useEffect(() => {
     if (employee) {
-      // console.log("Selected employee is:", employee)
       const VisaDocumentLink = employee.visaDocumentLink;
       const visaDocumentStatus = employee.visaDocumentStatus;
       if (visaDocumentStatus[0] === 'unsubmitted') {
@@ -89,7 +117,7 @@ function Onboard() {
   }
 
   const handleSubmit = (data) => {
-    console.log("onboarding data: ", data)
+    console.log("onboarding data: ", data.startDate)
     dispatch(updateEmployeeAction({ 
       employeeId: employeeId,
       firstName: data.firstName, 
@@ -100,6 +128,8 @@ function Onboard() {
       birthday: data.dateofbirth,
       gender: data.gender,
       visaTitle: "F1(OPT)",
+      visaStartDate: data.startDate,
+      visaEndDate: data.endDate,
       emergencyFirstName: data.referfirstName,
       emergencyLastName: data.referlastName,
       emergencyRelationship: data.relationship
@@ -122,7 +152,7 @@ function Onboard() {
     reader.readAsDataURL(file);
   };
 
-  const handleSelect= (visaType)=> {
+  const handleSelect = (visaType)=> {
     if(visaType==="F1"){
       setF1Selected(true);
       setOtherSelected(false);
@@ -161,6 +191,10 @@ function Onboard() {
 
           <Form.Item label="Cellphone Number" name="cellphonenumber" >
             <Input.TextArea rows={1} />
+          </Form.Item>
+
+          <Form.Item label="Email" name="email" initialValue={employee.email}>
+            <Input.TextArea rows={1} disabled/>
           </Form.Item>
 
           <Form.Item label="SSN" name="SSN" >
@@ -223,11 +257,12 @@ function Onboard() {
                       <p>Please enter the visa title</p> 
                       <input type="text" id="other" name="other"/>
                   </div>}
-
-                  {/* <label for="startDate">Start date:</label>
-                  <input type="date" id="startDate" name="startDate"/>
-                  <label for="endDate">End date:</label>
-                  <input type="date" id="endDate" name="endDate"/> */}
+                  <Form.Item label="Start Date" name="startDate" >
+                    <input type="date" id="startDate" name="startDate"/>
+                  </Form.Item>
+                  <Form.Item label="End Date" name="endDate" >
+                    <input type="date" id="endDate" name="endDate"/>
+                  </Form.Item>
                 </>
               )}      
           </Form.Item>
@@ -262,32 +297,55 @@ function Onboard() {
             <Input.TextArea rows={1} disabled/>
           </Form.Item>
   
-          <Form.Item label="current address" name="currentaddress" >
-            <Input.TextArea rows={1} />
+          <Form.Item label="Current address" name="currentaddress" initialValue={employee.address}>
+            <Input.TextArea rows={1} disabled/>
           </Form.Item>
   
-          <Form.Item label="cellphone number" name="cellphonenumber" >
-            <Input.TextArea rows={1} />
+          <Form.Item label="Cellphone number" name="cellphonenumber" initialValue={employee.cellPhone}>
+            <Input.TextArea rows={1} disabled/>
+          </Form.Item>
+
+          <Form.Item label="Email" name="email" initialValue={employee.email}>
+            <Input.TextArea rows={1} disabled/>
           </Form.Item>
   
-          <Form.Item label="SSN" name="SSN" >
-            <Input.TextArea rows={1} />
+          <Form.Item label="SSN" name="SSN" initialValue={employee.ssn}>
+            <Input.TextArea rows={1} disabled/>
           </Form.Item>
   
-          <Form.Item label="Date of Birth" name="dateofbirth" >
-            <Input.TextArea rows={1} />
+          <Form.Item label="Date of Birth" name="dateofbirth" initialValue={employee.birthday}>
+            <Input.TextArea rows={1} disabled/>
           </Form.Item>
   
-          <Form.Item label="Gender" name="gender" >
-            <Input.TextArea rows={1} />
+          <Form.Item label="Gender" name="gender" initialValue={employee.gender}>
+            <Input.TextArea rows={1} disabled/>
           </Form.Item>
   
-          <Form.Item label="Reference" name="reference" >
-            <Input.TextArea rows={1} />
+          <Form.Item label="Work authorization" name="authorization" initialValue="F1(CPT/OPT)">
+            <Input.TextArea rows={1} disabled/>
+          </Form.Item>
+
+          <Form.Item label="visa Start Date" name="visaStartDate" initialValue={employee.visaStartDate}>
+            <Input.TextArea rows={1} disabled/>
+          </Form.Item>
+
+          <Form.Item label="visa End Date" name="visaEndDate" initialValue={employee.visaEndDate}>
+            <Input.TextArea rows={1} disabled/>
           </Form.Item>
   
+          <div>Your Reference</div>
+          <Form.Item label="First Name" name="referfirstName" initialValue={employee.emergencyFirstName}>
+            <Input.TextArea rows={1} disabled/>
+          </Form.Item>
+          <Form.Item label="Last Name" name="referlastName" initialValue={employee.emergencyLastName}>
+            <Input.TextArea rows={1} disabled/>
+          </Form.Item>
+          <Form.Item label="Relationship" name="relationship" initialValue={employee.emergencyRelationship}>
+            <Input.TextArea rows={1} disabled/>
+          </Form.Item>
+
           <Form.Item label="Submitted Document" name="document" >
-              <a href={pdfUrl}>Download Pdf file</a>
+              <a href={pdfUrl}>Download the file you submitted</a>
           </Form.Item>
         </Form>
       </div>  
@@ -314,6 +372,10 @@ function Onboard() {
   
           <Form.Item label="Cellphone number" name="cellphonenumber" initialValue={employee.cellPhone}>
             <Input.TextArea rows={1} />
+          </Form.Item>
+
+          <Form.Item label="Email" name="email" initialValue={employee.email}>
+            <Input.TextArea rows={1} disabled/>
           </Form.Item>
   
           <Form.Item label="SSN" name="SSN" initialValue={employee.ssn}>
@@ -377,10 +439,12 @@ function Onboard() {
                       <input type="text" id="other" name="other"/>
                   </div>}
 
-                  {/* <label for="startDate">Start date:</label>
-                  <input type="date" id="startDate" name="startDate"/>
-                  <label for="endDate">End date:</label>
-                  <input type="date" id="endDate" name="endDate"/> */}
+                  <Form.Item label="Start Date" name="startDate" >
+                    <input type="date" id="startDate" name="startDate"/>
+                  </Form.Item>
+                  <Form.Item label="End Date" name="endDate" >
+                    <input type="date" id="endDate" name="endDate"/>
+                  </Form.Item>
                 </>
               )}      
           </Form.Item>
